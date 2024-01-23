@@ -16,5 +16,6 @@ npm install
 Once the dependencies are installed you can run the project by running the following command in the terminal:
 ```
 node server.js
+( FILEN I PROSJEKTET HAR .MJS-ending, ergo node server.mjs)
 ```
 This will start the server and you can now access the project on http://localhost:8080 in your browser.
