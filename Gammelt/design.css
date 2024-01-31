@@ -1,0 +1,67 @@
+/* design.css */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+
+.TekstContainer {
+    position: relative;
+}
+
+.tekstfeltIndex {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    text-align: center;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+}
+
+.input-container {
+    text-align: left;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.button-container {
+    text-align: center; /* Justerer knappene til midten */
+}
+
+.button-container button {
+    padding: 3px 10px;
+    font-size: 0,5em;
+    margin: 0 10px;
+}
+
+/* for mindre skjermer */
+@media screen and (max-width: 300px) {
+    h1 {
+        font-size: small; /* Justert fontstørrelse for h1 på smale skjermer */
+    }
+}

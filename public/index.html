@@ -5,25 +5,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sertifisering</title>
-    <link rel="stylesheet" href="design.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: large;
+        }
+
+        .TekstContainer {
+            position: relative;
+        }
+
+        .tekstfeltIndex {
+          padding: 5%;
+          
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+        
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button-container button {
+            padding: 3px 10px; /* knappens størrelse */
+            font-size: 1.0em; /* fontstørrelsen  */
+            margin: 0 10px;
+}
+
+        /* for mindre skjermer */
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: small;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="TekstContainer">
-    <img src="Bilder og design/bees-8267791_1920.png" alt="Image by Ted Erski from Pixabay" style="width: 100%; height: auto;">
-    
+        <img src="Bilder og design/bees-8267791_1920.png" alt="Image by Ted Erski from Pixabay" style="width: 100%; height: auto;">
 
-    <div class="overlay-text">
-        <h1>Sertifisering av egen bigård</h1>
-
-        <div class="button-container">
-            <button id="loginButton">Logg inn</button>
-            <button id="registerButton">Registrer ny bruker</button>
+        <div class="tekstfeltIndex">
+            <h1>Sertifisering av egen bigård</h1>
+            <div class="button-container">
+                <button id="registerButton">Registrer ny bruker</button>
+                <button id="loginButton">Logg inn</button> <!-- Ny knapp for innlogging -->
+            </div>
         </div>
     </div>
-</div>
 
-<script src="javaCode.js"></script>
+    <div class="overlayBox" id="registerBox" style="display: none;">
+        <h1>REGISTRER BRUKER!</h1>
+        <div class="inputContainer">
+            <label for="email">E-post (brukernavn):</label>
+            <input type="text" id="email" name="email" required><br>
+
+            <label for="name">Navn:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="password">Passord:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <div class="registrerButton">
+                <button id="registerUserButton">Registrer!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.mjs" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lytter etter klikk på "Registrer ny bruker" knappen
+            document.getElementById('registerButton').addEventListener('click', function () {
+                // Viser registreringsskjemaet
+                document.getElementById('registerBox').style.display = 'block';
+            });
+
+            // Lytter etter klikk på "Registrer!" knappen inne i registreringsskjemaet
+            document.getElementById('registerUserButton').addEventListener('click', async function () {
+                const email = document.getElementById('email').value;
+                const name = document.getElementById('name').value;
+                const password = document.getElementById('password').value;
+
+                // Sender en POST-forespørsel med brukerdata til serveren
+                const response = await fetch('/user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, name, password })
+                });
+
+                if (response.ok) {
+                    // Viser en bekreftelsesmelding ved vellykket registrering
+                    alert('Brukeren ble registrert!');
+                    // Legg til videre navigasjon eller andre handlinger etter vellykket registrering
+                } else {
+                    // Viser en feilmelding hvis registreringen mislykkes
+                    alert('Feil ved registrering av bruker');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

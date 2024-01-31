@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ny bruker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-family: 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.2em;
+        }
+
+        .TekstContainer {
+            position: relative;
+        }
+
+        .overlayBox {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .inputContainer {
+            text-align: left;
+        }
+
+        .inputContainer label {
+            display: block;
+            margin-bottom: 1%;
+        }
+
+        .inputContainer input {
+            width: 100%;
+            padding: 3px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .registrerButton {
+            text-align: center;
+            font-size: small;
+        }
+
+        .registrerButton button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin: 0 10px;
+            font-size: small;
+            color: rgb(61, 122, 1);
+        }
+
+        /* for mindre skjermer */
+        @media screen and (max-width: 300px) {
+            h1 {
+                font-size: small;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <img src="Bilder og design/bees-292132_1280.jpg" alt="Image by PollyDot from Pixabay" style="max-width: 100%; height: auto;">
+
+    <div class="overlayBox">
+        <h1>REGISTRER BRUKER!</h1>
+        <div class="inputContainer">
+            <label for="email">E-post (brukernavn):</label>
+            <input type="text" id="email" name="email" required><br>
+
+            <label for="name">Navn:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="password">Passord:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <div class="registrerButton">
+                <button id="registerUserButton">Registrer!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="nybruker.mjs" type="module"></script>></script>
+    <script src="index.mjs" type="module">></script>
+</body>
+
+</html>
