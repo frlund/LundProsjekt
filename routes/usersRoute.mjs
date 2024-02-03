@@ -5,9 +5,10 @@ import bcrypt from 'bcrypt'; // Importerer bcrypt for passordhashing
 import jwt from 'jsonwebtoken'; // Importerer jwt for å generere og verifisere JSON Web Tokens
 
 const USER_API = express.Router(); // Oppretter en ny instans av Express Router
+USER_API.use(express.json); // This makes it so that express parses all incoming payloads as JSON for this route.
 const users = []; // Oppretter en tom array for å lagre brukerdata
 
-const secretKey = 'your_secret_key'; // Definerer en hemmelig nøkkel for å signere JWT
+// const secretKey = 'your_secret_key'; // Definerer en hemmelig nøkkel for å signere JWT
 
 // Generer JWT når en bruker logger inn
 function generateToken(user) {
@@ -70,7 +71,7 @@ USER_API.post('/', async (req, res) => {
         const newUser = new User();
         newUser.name = name;
         newUser.email = email;
-        newUser.pswHash = hashedPassword; // Lagre det hasjede passordet
+        newUser.pswHash = hashedPassword; // Lagre det crypterte passordet
 
         // Legg til den nye brukeren i arrayen
         users.push(newUser);
