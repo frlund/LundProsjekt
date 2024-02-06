@@ -1,47 +1,30 @@
-import express from "express";
-import User from "../modules/user.mjs"; // Importerer User-klassen for å håndtere brukerdata
-import HttpCodes from "../modules/httpErrorCodes.mjs"; // Importerer HTTP-feilkoder for responsbehandling
-import bcrypt from 'bcrypt'; // Importerer bcrypt for passordhashing
-import jwt from 'jsonwebtoken'; // Importerer jwt for å generere og verifisere JSON Web Tokens
+import express, { response } from "express";
+import User from "../modules/user.mjs";
+import { HTTPCodes } from "../modules/httpConstants.mjs";
+import bcrypt from 'bcrypt'; // FL - Importerer bcrypt for passordhashing
+import SuperLogger from "../modules/SuperLogger.mjs";
 
-const USER_API = express.Router(); // Oppretter en ny instans av Express Router
-USER_API.use(express.json); // This makes it so that express parses all incoming payloads as JSON for this route.
-const users = []; // Oppretter en tom array for å lagre brukerdata
 
-// const secretKey = 'your_secret_key'; // Definerer en hemmelig nøkkel for å signere JWT
+const USER_API = express.Router(); 
+USER_API.use(express.json()); // This makes it so that express parses all incoming payloads as JSON for this route.
 
-// Generer JWT når en bruker logger inn
-function generateToken(user) {
-    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-    return token;
-}
+const users = [];
 
-// Verifiser JWT
-function verifyToken(req, res, next) {
-    const token = req.headers.authorization;
-
-    if (!token) {
-        return res.status(401).json({ error: 'Missing token' });
-    }
-
-    jwt.verify(token, secretKey, (err, decodedToken) => {
-        if (err) {
-            return res.status(401).json({ error: 'Invalid token' });
-        } else {
-            req.user = decodedToken; // Lagrer dekodet token i forespørselen for senere bruk
-            next(); // Fortsetter med neste midlertidig i Express middleware-kjeden
-        }
-    });
-}
+USER_API.get('/', (req, res, next) => {
+    SuperLogger.log("Demo of logging tool");
+    SuperLogger.log("A important msg", SuperLogger.LOGGING_LEVELS.CRTICAL);
+})
 
 // Hente en bruker basert på ID
-USER_API.get('/:id', (req, res) => {
+USER_API.get('/:id', (req, res, next) => {
     const userId = req.params.id;
-    console.log('Requested user ID:', userId);
+        console.log('Requested user ID:', userId);
+        console.log('Users array:', users);
+    
 
     // Finn brukeren med matchende ID
     const user = users.find(user => user.id === parseInt(userId));
-    console.log('Found user:', user);
+        console.log('Found user:', user);
 
     // Sjekk om brukeren ble funnet
     if (!user) {
@@ -49,53 +32,87 @@ USER_API.get('/:id', (req, res) => {
         return res.status(404).json({ error: "Bruker ikke funnet" });
     }
 
-    // Returner brukerobjektet
     res.status(200).json(user);
 });
 
 // Opprett en ny bruker
-USER_API.post('/', async (req, res) => {
-    // Destructure request body
-    const { name, email, password } = req.body;
+USER_API.post('/', async (req, res, next) => {
+    const { name, email, password, fylke } = req.body;
+    console.log('Received data:', { name, email, fylke });
 
-    // Sjekk om alle påkrevde felt er tilstede
-    if (!name || !email || !password) {
-        return res.status(HttpCodes.ClientSideErrorRespons.BadRequest).send("Mangler data felt").end();
-    }
 
-    try {
-        // Hash passordet før lagring
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Opprett en ny bruker
+    if (name != "" && email != "" && password != "") {
+        console.log('Creating a new user...');
         const newUser = new User();
+        // newUser.id = id;
         newUser.name = name;
         newUser.email = email;
-        newUser.pswHash = hashedPassword; // Lagre det crypterte passordet
+        newUser.pswHash = await bcrypt.hash(password, 10);
+        newUser.fylke = fylke;
 
-        // Legg til den nye brukeren i arrayen
-        users.push(newUser);
+        let exists = false;
 
-        // Generer JWT for den nye brukeren
-        const token = generateToken(newUser);
-
-        // Returner en respons med JWT og den nye brukeren
-        res.status(HttpCodes.SuccesfullRespons.Ok).json({ user: newUser, token });
-    } catch (error) {
-        // Håndter feil ved hashing av passord
-        console.error("Feil ved passordhashing:", error);
-        return res.status(HttpCodes.ServerError.InternalServerError).send("Feil under passordhashing").end();
+        if (!exists) {
+            users.push(newUser);
+                console.log('User added successfully.');
+            res.status(HTTPCodes.SuccesfullRespons.Ok).end();
+        } else {
+                console.log('User already exists.');
+            res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).end();
+        }
+    } else {
+            console.log('MANGLER DATAFELT!');
+        res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Missing data fields").end();
     }
 });
 
-// Rediger en eksisterende bruker
+
 USER_API.put('/:id', (req, res) => {
-    /// TODO: Implementer logikk for å redigere en bruker
+    const userId = req.params.id;
+    const user = users.find(user => user.id === parseInt(userId));
+        console.log('Found user:', user);
+
+    const { name, email, password, fylke } = req.body;
+
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    user.name = name;
+    user.password = password;
+    user.fylke = fylke;
+    user.email = email;
+
+    users[users.indexOf(user)] = user;
 });
 
-// Slett en bruker
+USER_API.get('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = users.find(user => user.email === email);
+    
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.pswHash);
+
+    if (!isValidPassword) {
+        return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    res.status(200).json({ message: "Login successful" });
+});
+
 USER_API.delete('/:id', (req, res) => {
-    /// TODO: Implementer logikk for å slette en bruker
+    const userId = req.params.id;
+    const user = users.find(user => user.id === parseInt(userId));
+
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    users.splice(users.indexOf(user), 1);
+    res.status(200).json({ message: "User deleted successfully" });
 });
 
 export default USER_API;

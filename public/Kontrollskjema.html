@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertifiseringsskjema</title>
+    <style>
+        body {
+            margin: 10;
+            padding: 10;
+        }
+
+
+        table {
+            border-collapse: collapse; 
+            width: 90%; 
+            margin: auto;
+            
+        }
+
+        th, td {
+            border: 1px solid black; 
+            padding: 1px; 
+            text-align: left; 
+        }
+
+        th {
+            background-color: #f2f2f2; 
+        }
+        tr:nth-child(even) { /* Farge på annenhver rad */
+            background-color: #f2f2f2;
+        }
+
+        .green-button {
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        .red-button {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        .textBoxKontrollskjema {
+            background-color: #eaeaea; 
+            padding: 5px;
+            border-radius: 25px; 
+            text-align: center;
+            width: 90%; 
+            margin: auto;
+        }
+
+   
+    </style>
+</head>
+<link rel="stylesheet" type="text/css" href="meny.css">
+<script src="kontrollskjema.js" type="module"></script>
+<body>
+
+    <ul>
+        <li><a href="meny.html">Hjem</a></li>
+        <li>
+            <a href="#">Sykdommer</a>
+            <ul class="dropdown">
+                <li><a href="#">Lukket yngelråte</a></li>
+                <li><a href="#">Åpen yngelråte</a></li>
+                <li><a href="#">Steinyngel</a></li>
+                <li><a href="#">Liten kubebille</a></li>
+                <li><a href="#">C-sykdommer</a></li>
+                <li><a href="#">Andre sykdommer</a></li>
+            </ul>
+        </li>
+        <li><a href="Kontrollskjema.html">Kontrollskjema</a></li>
+        <li><a href="Sertifisering.html">Sertifisering</a></li>
+    </ul>
+
+
+
+    <div class="textBoxKontrollskjema">
+        <h4>Start alltid inspeksjonen når du ankommer bigården.<br> Sjekk først utvendig status. Dersom noen kuber utmerker seg negativt,
+            undersøk disse spesielt. <br>Sjekk så mange kuber som mulig, minimum 20%. Alle tavlene i disse yngelrom skal sjekkes.</h3>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kontroller!</th>
+                <th>Normal status</th>
+                <th>Unormal status</th>
+                <th>Godkjent</th>
+                <th>Ikke godkjent</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Utvendig</td>
+                <td>Flyaktivitet rundt kuben <br>
+                    og ved flyåpning
+                    </td>
+                <td>Røving og/eller døde bier.<br>Ved unormal aktivitet skal disse
+                    kubene<br> undersøkes i løpet av
+                    inspeksjonen</td>
+                <td class="green-button">Normal</td>
+                <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Utvendig</td>
+                <td>Normalt med bier foran og rundt kuben<br></td>
+                <td>Kravlende bier på bakken og i vegitasjon.<br> Lammede, kravlende bier kan
+                    være sykdomstegn.<br> Sjekk
+                    vingestilling (Trakemidd)</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Utvendig</td>
+                <td>Normal flyaktivitet rundt kubeåpning<br>
+                    </td>
+                <td>Unormal- Røving eller døde bier.<br> Ved unormal aktivitet skal disse<br>
+                    kubene undersøkes i løpet av
+                    inspeksjonen</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Innvendig</td>
+                <td>Ingen biller eller lignende <br>
+                    </td>
+                <td>Biller i kasse eller på rammer.<br> Kubebillen er svært lyssky og
+                    vanskelig å oppdage.<br>
+                    Se etter aktivitet!</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Lukt</td>
+                <td>Varm og søtlig vokslukt<br>
+                    </td>
+                <td>Fremmed lukt? Surt, syrlig, råttent eller muggent.<br>
+                    Fare: Yngelråte, steinyngel eller
+                    sopp</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Yngelrom</td>
+                <td>Frisk og fin yngel<br>
+                    </td>
+                <td>Unormal-Mistenkelige celler / død yngel.<br> Fjern evt forsegling og ta
+                    fyrstikktesten ved <br>mistanke om
+                    yngelråte</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Yngelleie</td>
+                <td>Tett og jevnt yngelleie<br>
+                    </td>
+                <td>Unormal- "Hullete" eller død yngel. <br>Hullet yngelleie, død yngel eller
+                    innsunket<br> celler krever ytterligere kontroll</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+            <tr>
+                <td>Tavler</td>
+                <td>Ingen klynger med egg eller spindelvev<br>
+                     </td>
+                <td>Klynger med egg (rammehjørner) kan skyldes<br>
+                    liten kubebille. "Spindelvev" og voksskader kan<br> skyldes voksmøll.</td>
+                    <td class="green-button">Normal</td>
+                    <td class="red-button">Unormal</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

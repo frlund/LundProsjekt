@@ -1,32 +1,91 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Lytter etter klikk på "Registrer ny bruker" knappen
-    document.getElementById('registerButton').addEventListener('click', function () {
-        // Viser registreringsskjemaet
-        document.getElementById('registerBox').style.display = 'block';
+
+// index.mjs
+
+//Brukerregistrering
+document.addEventListener('DOMContentLoaded', function() {    
+    document.getElementById('nyBruker').addEventListener('click', function () {
+            console.log('Registrer ny bruker-knappen ble klikket.');
+        document.getElementById('popupContainer').style.display = 'block';
     });
 
-    // Lytter etter klikk på "Registrer!" knappen inne i registreringsskjemaet
+    const popupContainer = document.getElementById('popupContainer');
+    const closeButton = document.getElementById('closeButton');
+
+    closeButton.addEventListener('click', function() {
+        popupContainer.style.display = 'none';
+    });
+
     document.getElementById('registerUserButton').addEventListener('click', async function () {
         const email = document.getElementById('email').value;
         const name = document.getElementById('name').value;
         const password = document.getElementById('password').value;
+        const fylke = document.getElementById('fylke').value;
 
-        // Sender en POST-forespørsel med brukerdata til serveren
         const response = await fetch('/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, name, password })
+            body: JSON.stringify({ email, name, password, fylke })
         });
+                console.log('Registreringsforespørsel status:', response.status);
 
         if (response.ok) {
-            // Viser en bekreftelsesmelding ved vellykket registrering
             alert('Du er registrert! Velkommen');
-            // Legg til videre navigasjon eller andre handlinger etter vellykket registrering
         } else {
-            // Viser en feilmelding hvis registreringen mislykkes
-            alert('Feil ved registrering av bruker');
+            alert('Denne brukeren er allerede registrert');
+        }
+    });
+});
+
+// INNLOGGING
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('nyBruker').addEventListener('click', function () {
+        document.getElementById('popupContainer').style.display = 'block';
+    });
+
+    document.getElementById('loginButton').addEventListener('click', function () {
+        document.getElementById('loginPopupContainer').style.display = 'block';
+    });
+
+    const popupContainer = document.getElementById('popupContainer');
+    const closeButton = document.getElementById('closeButton');
+
+    closeButton.addEventListener('click', function() {
+        popupContainer.style.display = 'none';
+    });
+
+    const loginPopupContainer = document.getElementById('loginPopupContainer');
+    const closeLoginButton = document.getElementById('closeLoginButton');
+
+    closeLoginButton.addEventListener('click', function() {
+        loginPopupContainer.style.display = 'none';
+    });
+
+    document.getElementById('registerUserButton').addEventListener('click', async function () {
+        // Registreringskoden her...
+    });
+
+    document.getElementById('loginUserButton').addEventListener('click', async function () {
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        const response = await fetch('/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+                console.log('Innloggingsforespørsel status:', response.status);
+                
+
+        if (response.ok) {
+            alert('Du er logget inn!');
+            window.location.href = 'meny.html';
+        } else {
+            alert('Feil brukernavn eller passord');
         }
     });
 });

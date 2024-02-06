@@ -13,7 +13,7 @@ const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
 
 
-// Defining a folder that will contain static files.
+// Defining a folder that will contain static files.z
 server.use(express.static('public'));
 server.use(express.json()); //FL- tolke JSON
 
