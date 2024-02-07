@@ -85,8 +85,8 @@ USER_API.put('/:id', (req, res) => {
 
     users[users.indexOf(user)] = user;
 });
-
-USER_API.get('/login', async (req, res) => {
+// USER_API.GET??
+USER_API.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = users.find(user => user.email === email);
     

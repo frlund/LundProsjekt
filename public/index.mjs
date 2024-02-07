@@ -1,11 +1,12 @@
 
 // index.mjs
 
+//import isAuthenticated from './modules/autentisering.mjs'
+
 //Brukerregistrering
 document.addEventListener('DOMContentLoaded', function() {    
-    document.getElementById('nyBruker').addEventListener('click', function () {
-            console.log('Registrer ny bruker-knappen ble klikket.');
-        document.getElementById('popupContainer').style.display = 'block';
+    document.getElementById('newUser').addEventListener('click', function () {
+            document.getElementById('popupContainer').style.display = 'block';
     });
 
     const popupContainer = document.getElementById('popupContainer');
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // INNLOGGING
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('nyBruker').addEventListener('click', function () {
+    document.getElementById('newUser').addEventListener('click', function () {
         document.getElementById('popupContainer').style.display = 'block';
     });
 
@@ -64,26 +65,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('registerUserButton').addEventListener('click', async function () {
-        // Registreringskoden her...
+        // Registreringskoden eller ID...?
     });
 
     document.getElementById('loginUserButton').addEventListener('click', async function () {
-        const username = document.getElementById('loginUsername').value;
+        const email = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
-
+    
         const response = await fetch('/user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ email, password })
         });
-                console.log('Innloggingsforespørsel status:', response.status);
-                
-
+        console.log('Innloggingsforespørsel status:', response.status);
+    
         if (response.ok) {
             alert('Du er logget inn!');
-            window.location.href = 'meny.html';
+            window.location.href = 'meny.html'; // Omdirigerer til meny.html
         } else {
             alert('Feil brukernavn eller passord');
         }

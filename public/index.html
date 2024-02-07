@@ -11,6 +11,7 @@
             padding: 0;
             margin: 0;
             font-family: monospace;
+            background-color: #fdfdfd;
         }  
         
        
@@ -126,7 +127,7 @@
         <div class="tekstfeltIndex">
             <h1>Sertifisering av egen bigård</h1>
             <div class="button-container">
-                <button id="nyBruker">Registrer ny bruker</button>
+                <button id="newUser">Registrer ny bruker</button>
                 <button id="loginButton">Logg inn</button> 
             </div>
         </div>
@@ -144,14 +145,26 @@
         <button id="closeButton">Lukk!</button>
     </div>
     </div>
-
+<!-- opprett bruker -->
     <div class="popup-container" id="loginPopupContainer">
         <h1>Logg inn</h1>
         <div>
-            Email: <input type="email" id="email" required><br />
-            Password: <input type="password" id="password" required><br />
+            Brukernavn(epost): <input type="text" id="loginUsername" required><br />
+            Passord: <input type="password" id="loginPassword" required><br />
             <button id="loginUserButton">Logg inn</button>
             <button id="closeLoginButton">Lukk</button>
+        </div>
+    </div>
+
+    <!-- User login -->
+    <div class="popup-container" id="userPopupContainer">
+        <h1>Logg inn</h1>
+        <div>
+            Brukernavn: <input type="text" id="UloginUsername" required><br />
+            Email: <input type="email" id="loginEmail" required><br />
+            Password: <input type="password" id="UloginPassword" required><br />
+            <button id="UloginUserButton">Logg inn</button>
+            <button id="UcloseLoginButton">Lukk</button>
         </div>
     </div>
 
