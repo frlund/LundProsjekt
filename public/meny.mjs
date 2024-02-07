@@ -1,8 +1,7 @@
 
-import { isAuthenticated } from './modules/autentisering.mjs';
-import path from 'path';
+import isAuthenticated  from './modules/autentisering.mjs';
 
 // Bruk middleware
-// server.get('/meny.html', isAuthenticated, (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/meny.html'));
-// });
+ server.get('/meny.html', isAuthenticated, (req, res) => {
+    res.sendFile('../public/meny.html');
+ });

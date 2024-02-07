@@ -1,7 +1,7 @@
 import express from 'express' // Express is installed using npm
 import USER_API from './routes/usersRoute.mjs'; // This is where we have defined the API for working with users.
 import SuperLogger from './modules/SuperLogger.mjs';
-import isAutentisering  from './modules/autentisering.mjs'
+import autentisering  from './modules/autentisering.mjs'
 
 // Creating an instance of the server
 const server = express();
@@ -13,6 +13,9 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
 
+// Autentisering
+const autentisert = new autentisering();
+server.use(autentisert.isAuthenticated()); 
 
 // Defining a folder that will contain static files.z
 server.use(express.static('public'));

@@ -1,21 +1,21 @@
-// Middleware, sjekk 
-import path from 'path';
+// Middleware, sjekk userId
+
 
 function isAuthenticated(req, res, next) {
-    console.log('Sjekker autentisering...');
+    console.log('Sjekk autentisering...');
 
     if (req.session && req.session.userId) {
         console.log('Bruker er autentisert.');
         return next();
     } else {
-        console.log('Ikke autentisert');
-        return res.redirect('/index.html'); 
+        console.log('Ikke autorisert');
+        return res.redirect('../public/index.html'); 
     }
 }
 
-export default function(app) {
-    app.get('/meny.html', isAuthenticated, (req, res) => {
+export default function(okLogin) {
+    okLogin.get('../public/meny.html', isAuthenticated, (req, res) => {
         console.log('Bruker autentisert.');
-        res.sendFile(path.join(__dirname, '../public/meny.html')); 
+        res.sendFile('../public/meny.html'); 
     });
 }
