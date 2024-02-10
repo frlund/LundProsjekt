@@ -10,26 +10,100 @@
 
 
 <body>
+    <!-- Toppmenyen -->
     <ul>
-        <li><a href="#">Hjem</a></li>
+        <li><a href="meny.html">Hjem</a></li>
         <li>
             <a href="#">Sykdommer</a>
             <ul class="dropdown">
-                <li><a href="#">Lukket yngelråte</a></li>
-                <li><a href="#">Åpen yngelråte</a></li>
-                <li><a href="#">Steinyngel</a></li>
-                <li><a href="#">Liten kubebille</a></li>
-                <li><a href="#">C-sykdommer</a></li>
-                <li><a href="#">Andre sykdommer</a></li>
+                <li><a href="./sykdommer/lukketYR.html">Lukket yngelråte</a></li>
+                <li><a href="./sykdommer/aapenYR.html">Åpen yngelråte</a></li>
+                <li><a href="./sykdommer/steinyngel.html">Steinyngel</a></li>
+                <li><a href="./sykdommer/kubebille.html">Liten kubebille</a></li>
+                <li><a href="./sykdommer/Csykdommer.html">C-sykdommer</a></li>
+                <li><a href="./sykdommer/andreSykdommer.html">Andre sykdommer</a></li>
             </ul>
         </li>
         <li><a href="Kontrollskjema.html">Kontrollskjema</a></li>
         <li><a href="Sertifisering.html">Sertifisering</a></li>
     </ul>
 
+    <!-- <h2>Serifiseringsskjema</h2> -->
+    <p></p>
 
-        
-  
+<form id="myForm">
+    <label for="bigardnr">Bigårdsnummer/navn:</label>
+    <input type="text" id="bigardnr" name="bigardnr" required>
+
+    <label for="lokasjon">Bigård lokasjon:</label>
+    <input type="text" id="lokasjon" name="lokasjon" required>
+
+    <label for="dato">Dato for kontroll:</label>
+    <input type="date" id="dato" name="dato" required>
+
+    <label for="kontroll">Antall kuber kontrollert (min.20%:)</label>
+    <input type="text" id="kontroll" name="kontroll" required>
+
+    <label for="skjema">Fulgt kontrollskjemaet i kontrollarbeidet:</label>
+    <select id="skjema" name="skjema" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="yngelrate_lukket">Mistanke eller funn av Lukket yngelråte:</label>
+    <select id="yngelrate_lukket" name="yngelrate_lukket" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="yngelrate_apen">Mistanke eller funn av Åpen yngelråte:</label>
+    <select id="yngelrate_apen" name="yngelrate_apen" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="steinyngel">Mistanke eller funn av Steinyngel:</label>
+    <select id="steinyngel" name="steinyngel" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="kubebille">Mistanke eller funn av Liten Kubebille:</label>
+    <select id="kubebille" name="kubebille" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="varroa">Mistanke eller funn av Varroa (ikke Region C):</label>
+    <select id="varroa" name="varroa" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="trakemidd">Mistanke eller funn av Trakemidd (ikke Region C):</label>
+    <select id="trakemidd" name="trakemidd" required>
+        <option value="ja">Ja</option>
+        <option value="nei"selected>Nei</option>
+    </select>
+
+    <label for="notater">Egne notater fra inspeksjonen:</label>
+    <textarea id="notater" name="notater"></textarea>
+
+    <input type="submit" value="Send skjema til min epost">
+
+    <p>For å registrere denne sertifiseringen må du logge deg på Mattilsynets sider.<br> (ID-porten). 
+    Fyll inn dato når denne undersøkelser ble uført i feltet "Sertifisert fra". 
+    Datoen i feltet "Sertifisert til" blir da automatisk satt to år senere. 
+    Din bigård er da godkjent og sertifisert for to år fra gitt dato.
+        </p>
+
+        <div class="footer">
+            <p><a href="https://skjema.mattilsynet.no/mats/dyplenke?skjema=BIROEKT_MOBIL" target="_blank">Mattilsynet registrering (ID-Porten)</a></p>
+        </div>
     
+</form>
+
+
+<script src="Sertifisering.mjs"></script>
 </body>
 </html>
