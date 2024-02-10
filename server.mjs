@@ -1,11 +1,13 @@
-import express from 'express' // Express is installed using npm
-import USER_API from './routes/usersRoute.mjs'; // This is where we have defined the API for working with users.
+import 'dotenv/config'
+import express from 'express';
+import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
-import autentisering  from './modules/autentisering.mjs'
+import pg from 'pg';
+// import autentisering  from './modules/autentisering.mjs'
 
-// Creating an instance of the server
+
+// Server
 const server = express();
-// Selecting a port for the server to use.
 const port = (process.env.PORT || 8080);
 server.set('port', port);
 
@@ -13,20 +15,19 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
 
-// Autentisering
-const autentisert = new autentisering();
-server.use(autentisert.isAuthenticated()); 
+                                            // Autentisering
+                                            // const autentisert = new autentisering();
+                                            // server.use(autentisert.isAuthenticated()); 
 
 // Defining a folder that will contain static files.z
 server.use(express.static('public'));
-server.use(express.json()); //FL- tolke JSON
+
 
 // Telling the server to use the USER_API (all urls that uses this codewill have to have the /user after the base address)
 server.use("/user", USER_API);
 
 // A get request handler example)
 server.get("/", (req, res, next) => {
-    req.originalUrl
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });
 
@@ -34,3 +35,26 @@ server.get("/", (req, res, next) => {
 server.listen(server.get('port'), function () {
     console.log('server running', server.get('port'));
 });
+
+//DBkommunikasjon
+// import databaseConfig from './OldArkiv/DBconfig.mjs';
+// const { Pool } = pg; 
+// const pool = new Pool(databaseConfig);
+
+// pool.query('SELECT NOW()', (err, res) => {
+//     if (err) {
+//         console.error('Feil ved tilkobling til DB:', err);
+//     } else {
+//         console.log('Tilkobling DB vellykket! Tidspunkt:', res.rows[0].now);
+//     }
+
+//     pool.connect((err, client, release) => {
+//         if (err) {
+//             return console.error('Feil ved tilkobling til DB:', err);
+//         }
+//         console.log('Tilkobling DB vellykket!');
+//         release();
+//     });
+// });
+
+// export default {pool};

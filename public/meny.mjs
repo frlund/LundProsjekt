@@ -5,3 +5,5 @@ import isAuthenticated  from './modules/autentisering.mjs';
  server.get('/meny.html', isAuthenticated, (req, res) => {
     res.sendFile('../public/meny.html');
  });
+
+ 

@@ -1,4 +1,6 @@
-import express, { response } from "express";
+import express from "express";
+import pool from '../server.mjs';
+import server from '../server.mjs';
 import User from "../modules/user.mjs";
 import { HTTPCodes } from "../modules/httpConstants.mjs";
 import bcrypt from 'bcrypt'; // FL - Importerer bcrypt for passordhashing
@@ -38,31 +40,20 @@ USER_API.get('/:id', (req, res, next) => {
 // Opprett en ny bruker
 USER_API.post('/', async (req, res, next) => {
     const { name, email, password, fylke } = req.body;
-    console.log('Received data:', { name, email, fylke });
+        console.log('Received data:', {name, email});
 
+    try {
+        // Utfør en SQL-setning for å sette inn brukerdataene i databasen
+        const result = await pool.query(
+            'INSERT INTO public."Users" (name, email, password, fylke) VALUES ($1, $2, $3, $4)',
+            [name, email, password, fylke]
+        );
 
-    if (name != "" && email != "" && password != "") {
-        console.log('Creating a new user...');
-        const newUser = new User();
-        // newUser.id = id;
-        newUser.name = name;
-        newUser.email = email;
-        newUser.pswHash = await bcrypt.hash(password, 10);
-        newUser.fylke = fylke;
-
-        let exists = false;
-
-        if (!exists) {
-            users.push(newUser);
-                console.log('User added successfully.');
-            res.status(HTTPCodes.SuccesfullRespons.Ok).end();
-        } else {
-                console.log('User already exists.');
-            res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).end();
-        }
-    } else {
-            console.log('MANGLER DATAFELT!');
-        res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Missing data fields").end();
+        // Send en bekreftelsesmelding til klienten
+        res.status(201).json({ message: 'Brukeren ble opprettet' });
+    } catch (error) {
+        console.error('Feil ved oppretting av bruker:', error);
+        res.status(500).json({ error: 'Noe gikk galt under oppretting av bruker' });
     }
 });
 

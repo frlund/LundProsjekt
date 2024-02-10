@@ -31,7 +31,7 @@ ul li ul.dropdown li {
 
 ul li ul.dropdown {
     width: auto;
-    background: #f2f2f2;
+    background: brown;
     position: absolute;
     z-index: 1000;
     display: none;
@@ -71,6 +71,8 @@ ul li:hover ul.dropdown {
     height: auto;
     z-index: -1; 
 }
+
+
 
 @media screen and (max-width: 600px) {
     .tekstfeltIndex {

@@ -22,19 +22,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
         const fylke = document.getElementById('fylke').value;
 
-        const response = await fetch('/user', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, name, password, fylke })
-        });
-                console.log('Registreringsforespørsel status:', response.status);
-
-        if (response.ok) {
-            alert('Du er registrert! Velkommen');
-        } else {
-            alert('Denne brukeren er allerede registrert');
+        try {
+            const response = await fetch('/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, password, fylke })
+            });
+    
+            if (response.ok) {
+                alert('Du er registrert! Velkommen');
+            } else {
+                alert('Noe gikk galt under registreringen');
+            }
+        } catch (error) {
+            console.error('Feil ved registrering av bruker:', error);
+            alert('Noe gikk galt under registreringen');
         }
     });
 });

@@ -65,7 +65,7 @@ class SuperLogger {
 
     static log(msg, logLevl = SuperLogger.LOGGING_LEVELS.NORMAL) {
 
-        let logger = SuperLogger.instance;
+        let logger = new SuperLogger();
         if (logger.#globalThreshold > logLevl) {
             return;
         }
@@ -120,10 +120,6 @@ class SuperLogger {
 
         msg += "\n";
         console.log(msg);
-
-        
-
-
         ///TODO: The files should be based on current date.
         // ex: 300124.log
         fs.appendFile("./log.txt", msg, { encoding: "utf8" }, (err) => { });
