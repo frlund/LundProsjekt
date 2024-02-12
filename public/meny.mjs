@@ -7,3 +7,7 @@ import isAuthenticated  from './modules/autentisering.mjs';
  });
 
  
+//  Evt denne for verifisering
+//  sessionStorage.setItem("user", JSON.stringify(respon));
+
+//  sessionStorage.getItem("user");

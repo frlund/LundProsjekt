@@ -4,176 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sertifisering</title>
-    
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: monospace;
-            background-color: #fdfdfd;
-        }  
-        
-       
-
-        /* h1 { */
-            
-            /* font-size: large; */
-        }
-
-        .TekstContainer {
-            position: relative;
-            margin-top: 20%;
-        }
-
-        .tekstfeltIndex {
-            padding: 5%;          
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 20px;
-            text-align: center;
-        }
-        
-
-        .button-container {
-            text-align: center;
-        }
-
-        .button-container button {
-            padding: 3px 10px;
-            font-size: 0.8em; 
-            margin: 0 10px;
-        }
-
-        .popup-container {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 999;
-            max-width: 90%;
-        }
-
-        
-        .popup-container input {
-            display: block;
-            margin-bottom: 2px;
-            width: 100%;
-            padding: 1px;
-            font-size: 12px;
-            background-color: #ececec;
-        }
-
-
-        .popup-container button {
-            padding: 8px 16px;
-            font-size: 12px;
-            background-color: #ffffff;
-            color: #000000;
-            border: 1px solid #848484; 
-            border-radius: 20px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        /* Close button */
-        .popup-container .closeButton {
-            position: absolute;
-            bottom: 10px;
-            right: 15px; 
-        }
-
-        /* Register button */
-        .popup-container .registerUserButton {
-            position: absolute;
-            bottom: 10px;
-            left: 15px; 
-        }
-
-        /* Responsiv stil for mindre skjermer */
-        @media screen and (max-width: 600px) {
-            .tekstfeltIndex {
-                padding: 20px; 
-            }
-
-            h1 {
-                font-size: medium; 
-            }
-
-            .button-container button {
-                font-size: 0.5em;
-            }
-
-            .popup-container {
-                padding: 10px;
-            }
-        }
-    </style>
+    <title>My app</title>
 </head>
 
+
 <body>
-    <div class="TekstContainer">
-        <img src="Bilder og design/bees-8267791_1920.png" alt="Image by Ted Erski from Pixabay" style="width: 100%; height: auto;">
 
-        <div class="tekstfeltIndex">
-            <h1>Sertifisering av egen bigård</h1>
-            <div class="button-container">
-                <button id="newUser">Registrer ny bruker</button>
-                <button id="loginButton">Logg inn</button> 
-            </div>
-        </div>
-    </div>
-
-
-    <div class="popup-container" id="popupContainer">
-        <h1>Registrer bruker</h1>
     <div>
-        Name : <input type="text" id="name" required><br>
-        Email: <input type="email" id="email" required><br />
-        Password: <input type="password" id="password" required><br />
-        Fylke: <input type="text" id="fylke" required><br />
-        <button id="registerUserButton">Opprett bruker!</button>
-        <button id="closeButton">Lukk!</button>
-    </div>
-    </div>
-<!-- opprett bruker -->
-    <div class="popup-container" id="loginPopupContainer">
-        <h1>Logg inn</h1>
-        <div>
-            Brukernavn(epost): <input type="text" id="loginUsername" required><br />
-            Passord: <input type="password" id="loginPassword" required><br />
-            <button id="loginUserButton">Logg inn</button>
-            <button id="closeLoginButton">Lukk</button>
-        </div>
+        Name : <input type="text" id="name"><br>
+        Email: <input type="email" id="email"><br />
+        Password: <input type="password" id="pswHash"><br />
+        Fylke: <select id="fylke">
+            <option value="Agder">Agder</option>
+            <option value="Telemark">Telemark</option>
+        </select>
+        <button id="createUserButton">Create User</button>
     </div>
 
-    <!-- User login -->
-    <div class="popup-container" id="userPopupContainer">
-        <h1>Logg inn</h1>
-        <div>
-            Brukernavn: <input type="text" id="UloginUsername" required><br />
-            Email: <input type="email" id="loginEmail" required><br />
-            Password: <input type="password" id="UloginPassword" required><br />
-            <button id="UloginUserButton">Logg inn</button>
-            <button id="UcloseLoginButton">Lukk</button>
-        </div>
-    </div>
+    <script>
 
+        const createUserButton = document.getElementById("createUserButton");
 
-    
+        createUserButton.onclick = async function (e) {
 
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const pswHash = document.getElementById("pswHash").value;
+            const fylke = document.getElementById("fylke").value;
+            const user = { name, email, pswHash, fylke };
+            const respon = await postTo("/user", user);
 
-    <script src="index.mjs" type="module"></script>
-    
+            // // Hente bruker - flytte til profil
+            // const userResult = await fetch("/user/", {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+        }
+
+        async function postTo(url, data) {
+            console.log("Post from index");
+            const header = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            };
+
+            const respon = await fetch(url, header);
+            return respon;
+        }
+
+    </script>
+
 </body>
 
 </html>

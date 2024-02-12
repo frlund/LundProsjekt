@@ -2,7 +2,7 @@ import 'dotenv/config'
 import express from 'express';
 import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
-import pg from 'pg';
+// import pg from 'pg';
 // import autentisering  from './modules/autentisering.mjs'
 
 
@@ -15,9 +15,6 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
 
-                                            // Autentisering
-                                            // const autentisert = new autentisering();
-                                            // server.use(autentisert.isAuthenticated()); 
 
 // Defining a folder that will contain static files.z
 server.use(express.static('public'));
@@ -36,7 +33,7 @@ server.listen(server.get('port'), function () {
     console.log('server running', server.get('port'));
 });
 
-//DBkommunikasjon
+// // DBkommunikasjon
 // import databaseConfig from './OldArkiv/DBconfig.mjs';
 // const { Pool } = pg; 
 // const pool = new Pool(databaseConfig);
@@ -57,4 +54,4 @@ server.listen(server.get('port'), function () {
 //     });
 // });
 
-// export default {pool};
+// export default { server, pool };
