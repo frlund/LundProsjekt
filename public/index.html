@@ -102,7 +102,7 @@
             <div>
                 <input type="text" id="name" placeholder="Navn!"><br>
                 <input type="email" id="email" placeholder="Epost!"><br />
-                <input type="password" id="pswHash" placeholder="Passord!"><br />
+                <input type="password" id="password" placeholder="Passord!"><br />
                 <input type="fylke" id="fylke" placeholder="Fylke!"><br/><br/>
               
             </div>
@@ -126,9 +126,9 @@
 
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
-            const pswHash = document.getElementById("pswHash").value;
+            const password = document.getElementById("password").value;
             const fylke = document.getElementById("fylke").value;
-            const user = { name, email, pswHash, fylke };
+            const user = { name, email, password, fylke };
 
             const respon = await postTo("/user", user);
 

@@ -1,5 +1,5 @@
-import pg from "pg"
-import SuperLogger from "./SuperLogger.mjs";
+import pg from "pg";
+
 
 // We are using an enviorment variable to get the db credentials 
 if (process.env.DB_CONNECTIONSTRING == undefined) {
@@ -8,18 +8,30 @@ if (process.env.DB_CONNECTIONSTRING == undefined) {
 
 /// TODO: is the structure / design of the DBManager as good as it could be?
 
+
+const DBMANAGER = function (connectionString) {
+    return {
+        connectionString ,
+        updateUser: async function (user) {
+            
+        }
+    }
+}
+
 class DBManager {
 
     #credentials = {};
 
     constructor(connectionString) {
         console.log(this.#credentials);
-
         this.#credentials = {
             connectionString,
-            // ssl: (process.env.DB_SSL === "true") ? process.env.DB_SSL : false
             ssl: false
         };
+    }
+
+    getCredentials() {
+        return this.#credentials;
     }
 
     async getUser(id) {
@@ -38,7 +50,6 @@ class DBManager {
     }
 
     async updateUser(user) {
-
         const client = new pg.Client(this.#credentials);
 
         try {
@@ -61,7 +72,6 @@ class DBManager {
     }
 
     async deleteUser(user) {
-
         const client = new pg.Client(this.#credentials);
 
         try {
@@ -111,13 +121,26 @@ class DBManager {
 
 }
 
+// Sjekk om brukeren finne i DB vi epost
+async function userExists(email) {
+    const credentials = DBManager.getCredentials();
+    const client = new pg.Client(credentials);
+    
+    try {
+        await client.connect();
+        const query = 'SELECT COUNT(*) FROM "public"."Users" WHERE email = $1';
+        const result = await client.query(query, [email]);
+        const count = parseInt(result.rows[0].count);
+        return count > 0; 
+    } catch (error) {
+        console.error("Feil ved sjekking av brukerens eksistens:", error);
+        return false;
+    } finally {
+        client.end(); // Alltid koble fra databasen
+    }
+}
 
+export { userExists };
+export default DBMANAGER;
+// export default new DBManager(process.env.DB_CONNECTIONSTRING);
 
-
-
-
-
-
-export default new DBManager(process.env.DB_CONNECTIONSTRING);
-
-//
