@@ -6,21 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My app</title>
 </head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: monospace;
+        background-color: #fdfdfd;
+        position: relative;
+    }  
+    
+    h3 {
+        Times 
+        font-family: arial
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .tekstfeltIndex {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        text-align: center;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="fylke"],
+    select {
+        text-align: left;
+        margin: 5px 0; /* Legg til en liten margin på toppen og bunnen */
+        width: calc(100% - 20px); /* Juster bredden til å ta opp hele tekstfeltets bredde */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    button {
+        width: calc(80% - 20px); /* Juster bredden til å ta opp hele containerens bredde */
+        padding: 10px;
+        margin: 10px 0; /* Legg til litt mellomrom over og under knappene */
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff; /* Endre fargen til blå */
+        color: #000000;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3; /* Endre fargen til en mørkere blå ved hover */
+    }
+
+
+    /* Responsiv stil for mindre skjermer */
+    @media screen and (max-width: 600px) {
+        .tekstfeltIndex {
+            padding: 20px; 
+        }
+
+        h1 {
+            font-size: medium; 
+        }
+
+    }
+</style>
 
 
 <body>
-
-    <div>
-        Name : <input type="text" id="name"><br>
-        Email: <input type="email" id="email"><br />
-        Password: <input type="password" id="pswHash"><br />
-        Fylke: <select id="fylke">
-            <option value="Agder">Agder</option>
-            <option value="Telemark">Telemark</option>
-        </select>
-        <button id="createUserButton">Create User</button>
+    <img src="Bilder og design/bees-8267791_1920.png" alt="Image by Ted Erskiyy from Pixabay" style="width: 100%; height: auto;">
+    
+    <div class="TekstContainer">   
+       
+        <div class="tekstfeltIndex">
+            <br>
+            <h1>Sertifisering av egen bigård</h1>
+            <h3>
+                Kontrollskjemaet og prosedyre for sertifisering av egen bigård. Kvittering for godkjent kontroll foretas på 
+                Mattilsynets sider (ID-porten)
+                Opprett bruker eller logg inn!<br><br><br>
+            </h3>
+            <div>
+                <input type="text" id="name" placeholder="Navn!"><br>
+                <input type="email" id="email" placeholder="Epost!"><br />
+                <input type="password" id="pswHash" placeholder="Passord!"><br />
+                <input type="fylke" id="fylke" placeholder="Fylke!"><br/><br/>
+              
+            </div>
+            <button id="createUserButton">Registrer ny bruker</button>
+            <button id="loginUserButton">Logg inn</button>
+            
+        
+            <!-- <div class="button-container">
+                <button id="newUser">Registrer ny bruker</button>
+                <button id="loginButton">Logg inn</button> 
+            </div> -->
+        </div>
     </div>
 
+    
     <script>
 
         const createUserButton = document.getElementById("createUserButton");
@@ -32,15 +129,22 @@
             const pswHash = document.getElementById("pswHash").value;
             const fylke = document.getElementById("fylke").value;
             const user = { name, email, pswHash, fylke };
+
             const respon = await postTo("/user", user);
 
-            // // Hente bruker - flytte til profil
-            // const userResult = await fetch("/user/", {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // });
+            if (respon.ok) {
+                console.log("Bruker opprettet");
+                alert("Bruker opprettet!");
+            } else {
+                console.error("Feil ved opprettelse av bruker");
+                alert("Feil ved registrering av bruker");
+            }
+
+            
+        }
+
+        loginUserButton.onclick = function (e) {
+            window.location.href = "loggInn.html";
         }
 
         async function postTo(url, data) {
@@ -56,6 +160,10 @@
             const respon = await fetch(url, header);
             return respon;
         }
+
+        // Lage et LOGINSCRIPT også for innlogging!
+        // SJEKK OM BRUKER EKSISTERER (epost)
+        //
 
     </script>
 

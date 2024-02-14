@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logg inn</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: monospace;
+            background-color: #fdfdfd;
+            position: relative;
+        }
+
+        h3 {
+            font-family: arial;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .tekstfeltIndex {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            text-align: left;
+            margin: 5px 0;
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            width: calc(80% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #000000;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media screen and (max-width: 600px) {
+            .tekstfeltIndex {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: medium;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img src="Bilder og design/bees-8267791_1920.png" alt="Image by Ted Erskiyy from Pixabay">
+    <div class="tekstfeltIndex">
+        <br>
+        <h1>Logg inn</h1>
+        <h3>Velkommen<br><br><br></h3>
+        <form id="loginForm">
+            <label for="email">E-post</label>
+            <input type="email" id="email" name="email" required /><br>
+            <label for="password">Passord</label>
+            <input type="password" id="password" name="password" required /><br>
+            <button type="submit">Logg inn</button>
+        </form>
+        <div id="loginStatus"></div>
+    </div>
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const loginStatus = document.getElementById("loginStatus");
+
+        function createBasicAuthString(email, password) {
+            const combinedStr = email + ":" + password;
+            const b64Str = btoa(combinedStr);
+            return "basic " + b64Str;
+        }
+
+        async function loggInnSomBruker(authString) {
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: {
+                        authorization: authString,
+                    },
+                });
+                console.log("Response Status:", response.status);
+
+                if (response.status === 200) {
+                    window.location.href = "meny.html";
+                    const userToken = await response.text();
+                    localStorage.setItem('userToken', userToken);
+                } else {
+                    const data = await response.json();
+                    console.log(data);
+                    if (data.error)
+                        loginStatus.textContent = data.error;
+                    else
+                        loginStatus.textContent = "Feil brukernavn eller passord";
+                }
+            } catch (error) {
+                console.log(error);
+                loginStatus.textContent = 'Feil ' + error;
+            }
+        }
+
+        loginForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const hashedPassword = pswHash;
+
+            const authString = createBasicAuthString(email, hashedPassword);
+
+            await loggInnSomBruker(authString);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+        });
+        
+    
+
+
+
+        // const createUserButton = document.getElementById("createUserButton");
+
+        // createUserButton.onclick = async function (e) {
+
+        //     const name = document.getElementById("name").value;
+        //     const email = document.getElementById("email").value;
+        //     const pswHash = document.getElementById("pswHash").value;
+        //     const fylke = document.getElementById("fylke").value;
+        //     const user = { name, email, pswHash, fylke };
+
+        //     const respon = await postTo("/user", user);
+
+        //     if (respon.ok) {
+        //         console.log("Bruker opprettet");
+        //         alert("Bruker opprettet!");
+        //     } else {
+        //         console.error("Feil ved opprettelse av bruker");
+        //         alert("Feil ved registrering av bruker");
+        //     }
+
+            
+        // }
+
+        // async function postTo(url, data) {
+        //     console.log("Post from index");
+        //     const header = {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(data),
+        //     };
+
+        //     const respon = await fetch(url, header);
+        //     return respon;
+        // }
+
+        // Lage et LOGINSCRIPT også for innlogging!
+        // SJEKK OM BRUKER EKSISTERER (epost)
+        //
+
+    </script>
+
+</body>
+
+</html>
