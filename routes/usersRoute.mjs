@@ -4,7 +4,6 @@ import { HTTPCodes } from "../modules/httpConstants.mjs";
 import SuperLogger from "../modules/SuperLogger.mjs";
 import pg from "pg"
 import DBManager from "../modules/storageManager.mjs";
-import { userExists } from "../modules/storageManager.mjs";
 
 
 const USER_API = express.Router();
@@ -43,18 +42,21 @@ USER_API.post('/', async (req, res, next) => {
 
     if (name && email && password) {
         try {
-            // Sjekker om brukeren allerede eksisterer
-            const userAlredyExists = await userExists(email);
-            if (userAlredyExists) {
-                return res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Eposten eksisterer allerede").end();
-            }
 
+            
             // Oppretter en ny bruker
             let user = new User();
             user.name = name;
             user.email = email;
             user.fylke = fylke;
             user.pswHash = password; // Husk å kryptere passordet!
+
+            // Sjekker om brukeren allerede eksisterer
+            const userAlredyExists = await user.isKnownUser();
+            if (userAlredyExists) {
+                return res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Eposten eksisterer allerede").end();
+            }
+
 
             // Lagrer den nye brukeren i databasen
             user = await user.save();

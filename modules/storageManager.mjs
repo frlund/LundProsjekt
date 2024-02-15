@@ -1,13 +1,11 @@
 import pg from "pg";
 
 
-// We are using an enviorment variable to get the db credentials 
-if (process.env.DB_CONNECTIONSTRING == undefined) {
-    throw ("You forgot the db connection string");
-}
+
 
 /// TODO: is the structure / design of the DBManager as good as it could be?
 
+/*
 
 const DBMANAGER = function (connectionString) {
     return {
@@ -16,13 +14,16 @@ const DBMANAGER = function (connectionString) {
             
         }
     }
-}
+}*/
 
 class DBManager {
 
     #credentials = {};
 
     constructor(connectionString) {
+
+        
+
         console.log(this.#credentials);
         this.#credentials = {
             connectionString,
@@ -119,28 +120,33 @@ class DBManager {
 
     }
 
-}
-
-// Sjekk om brukeren finne i DB vi epost
-async function userExists(email) {
-    const credentials = DBManager.getCredentials();
-    const client = new pg.Client(credentials);
-    
-    try {
-        await client.connect();
-        const query = 'SELECT COUNT(*) FROM "public"."Users" WHERE email = $1';
-        const result = await client.query(query, [email]);
-        const count = parseInt(result.rows[0].count);
-        return count > 0; 
-    } catch (error) {
-        console.error("Feil ved sjekking av brukerens eksistens:", error);
-        return false;
-    } finally {
-        client.end(); // Alltid koble fra databasen
+    async userExists(email) {
+       // const credentials = DBManager.getCredentials();
+        const client = new pg.Client(this.#credentials);
+        
+        try {
+            await client.connect();
+            const query = 'SELECT COUNT(*) FROM "public"."Users" WHERE email = $1::Text;';
+            const result = await client.query(query, [email]);
+            const count = parseInt(result.rows[0].count);
+            return count > 0; 
+        } catch (error) {
+            console.error("Feil ved sjekking av brukerens eksistens:", error);
+            return false;
+        } finally {
+            client.end(); // Alltid koble fra databasen
+        }
     }
 }
 
-export { userExists };
-export default DBMANAGER;
-// export default new DBManager(process.env.DB_CONNECTIONSTRING);
+// Sjekk om brukeren finne i DB vi epost
+
+
+// We are using an enviorment variable to get the db credentials 
+if (process.env.DB_CONNECTIONSTRING == undefined) {
+    throw ("You forgot the db connection string");
+}
+
+//export default DBMANAGER;
+export default new DBManager(process.env.DB_CONNECTIONSTRING);
 

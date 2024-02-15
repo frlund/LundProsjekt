@@ -32,6 +32,10 @@ class User {
     /// TODO: What happens if the DBManager fails to complete its task?
     DBManager.deleteUser(this);
   }
+
+  async isKnownUser(){
+    return await DBManager.userExists(this.email);
+  }
 }
 
 export default User;
