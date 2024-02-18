@@ -1,58 +1,36 @@
-import 'dotenv/config'; 
+//SERVER.mjs
+
+import 'dotenv/config' 
 import express from 'express';
 import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
-// import httpConstants from "../modules/httpConstants.mjs";
-import pg from 'pg';
-// import autentisering  from './modules/autentisering.mjs'
-// import printDeveloperStartupInportantInformationMSG from"./modules/developerHelpers.mjs;
-
-// printDeveloperStartupInportantInformationMSG ();
-
+import autentisering from './modules/autentisering.mjs';
+import DBManager from './modules/storageManager.mjs';
+import session from 'express-session';
 
 // Server
 const server = express();
 const port = (process.env.PORT || 8080);
+server.use(express.json());
 server.set('port', port);
 
-
-
-// Enable logging for server
-const logger = new SuperLogger();
+const logger = new SuperLogger(); // Enable logging for server
 server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
 
+server.use(session({ // FL- middleware for autentisering
+    secret: 'hemmelig', // Dette bør være en unik og sikker verdi
+    resave: false,
+    saveUninitialized: true
+}));
 
-// Defining a folder that will contain static files.z
-server.use(express.static('public'));
+server.use(express.static('public')); // Defining a folder that will contain static files.
 
+server.use("/user", USER_API); // Telling the server to use the USER_API (all urls that uses this codewill have to have the /user after the base address)
 
-// Telling the server to use the USER_API (all urls that uses this codewill have to have the /user after the base address)
-server.use("/user", USER_API);
-
-// A get request handler example)
-server.get("/", (req, res, next) => {
+server.get("/", (req, res, next) => { // A get request handler example)
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });
 
-// Start the server 
-server.listen(server.get('port'), function () {
+server.listen(server.get('port'), function () { // Start the server 
     console.log('server running', server.get('port'));
-});
-
-// FL- loggInn.html Sjekker bruker videre mot DB
-server.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        const user = await DBManager.validateUser(email, password);
-
-        if (user) {
-            res.status(HTTPCodes.SuccesfullRespons.Ok).json({ message: 'Innlogging vellykket', user }).end();
-        } else {
-            res.status(HTTPCodes.ClientSideErrorRespons.Unauthorized).json({ error: 'Feil brukernavn eller passord' }).end();
-        }
-    } catch (error) {
-        console.error('Feil ved innlogging:', error);
-        res.status(HTTPCodes.ServerSideErrorRespons.InternalServerError).json({ error: 'Noe gikk galt ved innlogging' }).end();
-    }
 });

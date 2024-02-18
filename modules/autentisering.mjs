@@ -1,21 +1,24 @@
-// Middleware, sjekk userId
+// MIDDLEWARE for tilgangskontroll
+import DBManager from './storageManager.mjs';
 
-
-function isAuthenticated(req, res, next) {
+async function checkAuthentic(req, res, next) {
     console.log('Sjekk autentisering...');
+    const userId = req.session && req.session.userId;
 
-    if (req.session && req.session.userId) {
-        console.log('Bruker er autentisert.');
-        return next();
-    } else {
-        console.log('Ikke autorisert');
-        return res.redirect('../public/index.html'); 
+    if (userId) {
+        try {
+            const user = await DBManager.getUser(userId);
+            if (user) {
+                console.log('Bruker er autentisert.');
+                return next();
+            }
+        } catch (error) {
+            console.error('Feil ved autentisering:', error);
+        }
     }
+
+    console.log('Ikke autorisert');
+    return res.redirect('/index.html');
 }
 
-export default function(okLogin) {
-    okLogin.get('../public/meny.html', isAuthenticated, (req, res) => {
-        console.log('Bruker autentisert.');
-        res.sendFile('../public/meny.html'); 
-    });
-}
+export default checkAuthentic;

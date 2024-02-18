@@ -1,12 +1,12 @@
 // user.mjs
 
+
+import crypto from 'crypto';
 import DBManager from "./storageManager.mjs";
 
 
 class User {
-
-  constructor() {
-    ///TODO: Are these the correct fields for your project?
+  constructor() {    
     this.email;
     this.pswHash;
     this.name;
@@ -14,9 +14,13 @@ class User {
     this.id;
   }
 
+  
+  setPassword(password) {
+    this.pswHash = password;
+  }
+
   async save() {
 
-    console.log("User - Save");
     /// TODO: What happens if the DBManager fails to complete its task?
 
     // We know that if a user object dos not have the ID, then it cant be in the DB.
@@ -27,6 +31,7 @@ class User {
     }
   }
 
+
   delete() {
 
     /// TODO: What happens if the DBManager fails to complete its task?
@@ -36,6 +41,14 @@ class User {
   async isKnownUser(){
     return await DBManager.userExists(this.email);
   }
-}
+
+  // // hashe passord, crypto sha256
+  // hashPassword(password) {
+  //   const hash = crypto.createHash('sha256');
+  //   hash.update(password);
+  //   return hash.digest('hex');
+  // }
+
+};
 
 export default User;

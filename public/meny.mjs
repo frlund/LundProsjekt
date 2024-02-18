@@ -1,10 +1,10 @@
 
-import isAuthenticated  from './modules/autentisering.mjs';
+// import isAuthenticated  from './modules/autentisering.mjs';
 
-// Bruk middleware
- server.get('/meny.html', isAuthenticated, (req, res) => {
-    res.sendFile('../public/meny.html');
- });
+// // Bruk middleware
+//  server.get('/meny.html', isAuthenticated, (req, res) => {
+//     res.sendFile('../public/meny.html');
+//  });
 
  
 //  Evt denne for verifisering

@@ -84,53 +84,68 @@
         <br>
         <h1>Logg inn</h1>
         <h3>Velkommen<br><br><br></h3>
-       <div>
-            <input type="email" id="email" placeholder="Epost!" required><br>
-            <input type="password" id="password" placeholder="Passord!" required><br />
-        </div>
-
-       <button id="loggInButton">Logg inn</button>
-        
+        <form id="loginForm">
+            <label for="email">E-post</label>
+            <input type="email" id="email" name="email" required /><br>
+            <label for="password">Passord</label>
+            <input type="password" id="password" name="password" required /><br>
+            <button type="submit">Logg inn</button>
+        </form>
+        <div id="loginStatus"></div>
     </div>
 
-
+    
     <script>
-    const loggInButton = document.getElementById("loggInButton");
-    loggInButton.onclick = async function (e) {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        const loginForm = document.getElementById("loginForm");
+        const loginStatus = document.getElementById("loginStatus");
 
-        try {
-            const response = await fetch("/user/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
+        async function loggInnSomBruker(email, password) {
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+            body: JSON.stringify({ email, password }), // Send dataen som JSON
+        });
 
-            console.log("Response Status:", response.status);
+        console.log("Response Status:", response.status);
 
-            if (response.status === 200) {
-                const responseData = await response.json(); 
-                const userId = responseData.user.id;
-
-                if (userId) {
-                    sessionStorage.setItem('userId', userId);
-                    console.log("Brukerens ID lagret i sessionStorage:", userId);
-                }
-                   window.location.href = "meny.html";
-            } else {
-                console.error("Påloggingsfeil 1");
-                alert("Feil ved innlogging");
-            }
+        if (response.status === 200) {
+            window.location.href = "meny.html";
+    
+        } else {
+            const data = await response.json();
+            console.log(data);
+            if (data.error)
+                loginStatus.textContent = data.error;
+            else
+                loginStatus.textContent = "Feil brukernavn eller passord";
+        }
         } catch (error) {
-            console.error("Feil 3:", error);
-            alert("Feil 4!");
+            console.log(error);
+            loginStatus.textContent = 'Feil ' + error;
         }
     }
-</script>
 
+        loginForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            await loggInnSomBruker(email, password);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+        });
+
+        // Lage et LOGINSCRIPT også for innlogging!
+        // SJEKK OM BRUKER EKSISTERER (epost)
+        //
+
+    </script>
 
 </body>
 

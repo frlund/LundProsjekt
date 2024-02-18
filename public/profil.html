@@ -5,66 +5,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
-    
-    
 </head>
+
+<input id="email">
+
+<button type="button" id="updateUserButton">Lagre</button>
+<button type="button" id="deleteUserButton">Slett</button>
+
 <body>
- 
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            getUser(sessionStorage.getItem('userId'));
+        });
 
-     <script>
+        // Sende inn userid fra autentisering - session
+        async function getUser(userId) {
+            const response = await fetch("/user/" + userId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
-// Hente bruker - flytte til profil
-    const userResult = await fetch("/user/", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+            const userResponse = await response.json();
+            const user = JSON.parse(userResponse);
+
+            document.getElementById("email").value = user.email;
+            // og de andre feltene
+
         }
-    });
 
+        const updateUserButton = document.getElementById("updateUserButton");
+        updateUserButton.onclick = async function (e) {
+            e.preventDefault(); // Hindre standard skjemaoppførsel
+            const id = sessionStorage.getItem("userId");
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const fylke = document.getElementById("fylke").value;
 
-        document.addEventListener('DOMContentLoaded', function() {
-    getUser(5);
-});
+            const user = { id, name, email, password, fylke };
 
-// Sende inn userid fra autentisering - session
-async function getUser(userId) {
-    const response = await fetch("/user/" + userId, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+            try {
+                const response = await putTo(`/user/${user.id}`, user);
+                if (response.ok) {
+                    console.log("Inndata som sendes:", JSON.stringify(user));
+                    alert("Velkommen! Bruker opprettet!");
+                } else if (response.status == 409) {
+                    console.log("Brukeren eksisterer allerede.");
+                    alert("E-posten er allerede registrert.");
+                } else {
+                    console.error("Feil ved opprettelse av bruker");
+                    alert("Feil ved registrering av bruker");
+                }
+            } catch (error) {
+                console.error("Feil ved opprettelse av bruker:", error);
+                alert("Du er allerede registrert!");
+            }
         }
-    });
-}
 
-// const deleteUserButton = document.getElementById("deleteUser");
-
-// deleteUserButton.onclick = async function (e) {
-//     const respon = await deleteUser("/user/1"); // Erstatt med user.id
-
-// }
-
-// async function deleteUser(url, data) {
-//     const header = {
-//         method: "DELETE",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//     };
-
-//     const respon = await fetch(url, header);
-//     return respon;
-// }
-
-
-
+        const deleteUserButton = document.getElementById("deleteUserButton");
+        deleteUserButton.onclick = async function (e) {
+            e.preventDefault();
+            const userId = sessionStorage.getItem("userId");
+            try {
+                const response = await deleteTo(`/user/${userId}`);
+                // Oppdatere feilmeldinger
+                if (response.ok) {
+                    console.log("Inndata som sendes:", JSON.stringify(user));
+                    alert("Velkommen! Bruker opprettet!");
+                } else if (response.status == 409) {
+                    console.log("Brukeren eksisterer allerede.");
+                    alert("E-posten er allerede registrert.");
+                } else {
+                    console.error("Feil ved opprettelse av bruker");
+                    alert("Feil ved registrering av bruker");
+                }
+            } catch (error) {
+                console.error("Feil ved opprettelse av bruker:", error);
+                alert("Du er allerede registrert!");
+            }
+        }
 
 
+        async function putTo(url, data) {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return response;
+        }
 
-
-
-     </script>
+        async function deleteTo(url) {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response;
+        }
+    </script>
 </body>
 
 

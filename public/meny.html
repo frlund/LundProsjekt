@@ -4,9 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menyside</title>
-    <link rel="stylesheet" type="text/css" href="meny.css">
+    <!-- <link rel="stylesheet" type="text/css" href="meny.css"> -->
+    <style>
+        body {
+    padding: 0;
+    margin: 0;
+    font-family: monospace;
+    background-color: #fdfdfd;
+
+}
+
+header {
+    align-items: center;
+    column-gap: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-name {
+    align-items: center;
+    column-gap: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+ul {
+    list-style: none;
+    background: #f2f2f2;
+    padding: 0;
+}
+
+ul li {
+    display: inline-block;
+    position: relative;
+}
+ul li a {
+    display: block;
+    padding: 14px 20px;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+    font-size: 14px;
+    /* transition: padding 0.s; */
+}
+
+ul li ul.dropdown li {
+    display: block;
+}
+
+ul li ul.dropdown {
+    width: auto;
+    background: #f2f2f2;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    font-size: 12px;
+    text-align: left;
+}
+
+ul li a:hover {
+    background: #e5e5e5;
+    padding: 16px 22px; /* Juster padding på hover */
+}
+
+ul li:hover ul.dropdown {
+    display: block;
+}
+
+.imageTextMeny {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+
+}
+
+.image-container {
+    text-align: center;
+    margin-top: 11px;
+    position: relative;
+
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .tekstfeltIndex {
+        padding: auto;
+    }
+
+    h1 {
+        font-size: medium;
+    }
+
+    .imageTextMeny {
+        font-size: 0.6em;
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+
+    }
+
+    ul li ul.dropdown {
+        background: #e1e1e1;
+        z-index: 1000;
+
+    }
+
+}
+
+
+
+
+    </style>
 </head>
 <body>
+    <header>
+        <div class="profile-name">
+            <a href="profil.html">
+                <img src="/public/Bilder og design/ikonProfile.svg" alt="Profil">
+            </a>
+            <div id="userEmail"></div>
+        </div>
+        <button type="button" id="logoutButton" onclick="logout()">Logg ut</button>
+    </header>
     <ul>
         <li><a href="meny.html">Hjem</a></li>
         <li>
@@ -31,7 +165,43 @@
             <p>...det samme gjelder birøkteren.</p>
         </div>
     </div>
-    
+
+    <script>
+        function logout() {
+            // console.log("Log out");
+            sessionStorage.removeItem('userId');
+            window.location.href = 'index.html';
+        }
+
+        const userId = sessionStorage.getItem('userId');
+        console.log("Hentet brukerens ID fra sessionStorage:", userId);
+        if (!userId || userId === 'undefined') {
+            window.location.href = "loggInn.html";
+        } else {
+            console.log("Bruker er autentisert. Tillat tilgang til meny.html.");
+        }
+
+        window.onload = function() {
+        fetch(`/user/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Brukerdata mottatt fra serveren:", data);
+                const userEmail = JSON.parse(data).email;
+                const userEmailElement = document.getElementById('userEmail');
+                if (userEmailElement) {
+                    userEmailElement.textContent = `${userEmail}`;
+                    console.log(userEmail);
+                } else {
+                    console.error("Elementet med ID 'userEmail' eksisterer ikke.");
+                }
+            })
+            .catch(error => {
+                console.error("Feil ved henting av brukerdata:", error);
+        });
+};
+    </script>
+
+
 </body>
-<script src="meny.mjs" type="module"></script>
+<!-- <script src="meny.mjs" type="module"></script> -->
 </html>

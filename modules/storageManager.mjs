@@ -1,33 +1,18 @@
 import pg from "pg";
+import crypto from 'crypto';
 
-
-
-
-/// TODO: is the structure / design of the DBManager as good as it could be?
-
-/*
-
-const DBMANAGER = function (connectionString) {
-    return {
-        connectionString ,
-        updateUser: async function (user) {
-            
-        }
-    }
-}*/
+// We are using an enviorment variable to get the db credentials 
+if (process.env.DB_CONNECTIONSTRING == undefined) {
+    throw ("You forgot the db connection string");
+}
 
 class DBManager {
-
     #credentials = {};
-
     constructor(connectionString) {
-
-        
-
         console.log(this.#credentials);
         this.#credentials = {
             connectionString,
-            ssl: false
+            ssl: (process.env.DB_SSL === "true") ? process.env.DB_SSL : false
         };
     }
 
@@ -37,7 +22,6 @@ class DBManager {
 
     async getUser(id) {
         const client = new pg.Client(this.#credentials);
-
         try {
             await client.connect();
             const output = await client.query('select * from "public"."Users" where id = $1;', [id]);
@@ -50,9 +34,22 @@ class DBManager {
         }
     }
 
+    async userExists(email) {
+        const client = new pg.Client(this.#credentials);
+        try {
+            await client.connect();
+            const output = await client.query('select * from "public"."Users" where email = $1;', [email]);
+            console.log(output.rows[0]);
+            return output.rows.length > 0;
+        } catch(error) {
+            console.error("Feil under lasting av bruker");
+        } finally {
+            client.end(); // Always disconnect from the database.
+        }
+    }
+
     async updateUser(user) {
         const client = new pg.Client(this.#credentials);
-
         try {
             await client.connect();
             const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "password" = $3 where id = $4;', [user.name, user.email, user.pswHash, user.id]);
@@ -69,7 +66,6 @@ class DBManager {
         }
 
         return user;
-
     }
 
     async deleteUser(user) {
@@ -120,27 +116,60 @@ class DBManager {
 
     }
 
-    async userExists(email) {
-       // const credentials = DBManager.getCredentials();
+    async validateUser(email, password) {
         const client = new pg.Client(this.#credentials);
-        
+
+        const hashedPassword = this.hashPassword(password);
+
         try {
             await client.connect();
-            const query = 'SELECT COUNT(*) FROM "public"."Users" WHERE email = $1::Text;';
-            const result = await client.query(query, [email]);
-            const count = parseInt(result.rows[0].count);
-            return count > 0; 
-        } catch (error) {
-            console.error("Feil ved sjekking av brukerens eksistens:", error);
-            return false;
+            const output = await client.query('SELECT * FROM "public"."Users" WHERE email = $1 AND password = $2;', [email, hashedPassword]);
+            return output.rows[0]; 
+        } catch(error) {
+            console.error("Feil under validering av bruker:", error);
+            throw error; 
         } finally {
-            client.end(); // Alltid koble fra databasen
+            client.end(); 
         }
     }
+
+    async createVerifisering(userId, verifisering) {
+        console.log(this.#credentials);
+        const client = new pg.Client(this.#credentials);
+
+        const verifiseringString = JSON.stringify(verifisering);
+
+        try {
+            await client.connect();
+            const output = await client.query('INSERT INTO "public"."Verifisering"("date", "userId", "file") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;', [new Date(), userId, verifiseringString]);
+
+            // Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
+            // Of special intrest is the rows and rowCount properties of this object.
+
+            if (output.rows.length == 1) {
+                // We stored the user in the DB.
+                user.id = output.rows[0].id;
+            }
+
+        } catch (error) {
+            console.error(error);
+            //TODO : Error handling?? Remember that this is a module seperate from your server 
+        } finally {
+            client.end(); // Always disconnect from the database.
+        }
+
+        return user;
+
+    }
+
+    // hashe passord, crypto sha256
+  hashPassword(password) {
+    const hash = crypto.createHash('sha256');
+    hash.update(password);
+    return hash.digest('hex');
+  }
+
 }
-
-// Sjekk om brukeren finne i DB vi epost
-
 
 // We are using an enviorment variable to get the db credentials 
 if (process.env.DB_CONNECTIONSTRING == undefined) {
@@ -149,4 +178,3 @@ if (process.env.DB_CONNECTIONSTRING == undefined) {
 
 //export default DBMANAGER;
 export default new DBManager(process.env.DB_CONNECTIONSTRING);
-
