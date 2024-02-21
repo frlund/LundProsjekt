@@ -9,15 +9,18 @@
 </head>
 <body>
     <header>
-        <div class="profile-name">
-            
-            <a href="profil.html">
-                <img id="profilImage" src="./Bilder og design/user.png" alt="Profil">
-            </a>
-            <div id="userEmail"></div>
+        <div class="profile-info">
+            <div class="profile-name">
+                <a href="profil.html">
+                    <img id="profilImage" src="./Bilder og design/user.png" alt="Profil">
+                </a>
+
+                <div id="userEmail"></div>
+            </div>
         </div>
         <button type="button" id="logoutButton" onclick="logout()">Logg ut</button>
     </header>
+    
     <ul>
         <li><a href="meny.html">Hjem</a></li>
         <li>
@@ -48,7 +51,7 @@
         function logout() {
         // console.log("Log out");
         sessionStorage.removeItem('userId');
-        window.location.href = 'index.html';
+        window.location.href = 'loggInn.html';
         }
 
         const userId = sessionStorage.getItem('userId');

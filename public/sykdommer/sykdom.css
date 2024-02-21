@@ -49,8 +49,6 @@ body {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
         }
 
-        
-
         .overlay-content button {
             position: absolute;
             bottom: 20px;
@@ -65,6 +63,20 @@ body {
         
         .image.expanded {
             transform: scale(1.5);
+        }
+
+        #closeButton {
+            background-color: #007bff; 
+            color: white;
+            padding: 10px 20px;
+            border:#007bff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.5s ease;
+        }
+        
+        #closeButton:hover {
+            background-color: #2d8031; /* Endre farge ved hover */
         }
 
         /* responsivt design */

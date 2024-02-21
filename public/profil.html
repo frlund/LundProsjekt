@@ -31,6 +31,15 @@
 
         button:hover {
             background-color: #2d8031; 
+        }c
+
+        #deleteUserButton {
+            background-color: #ff0000; 
+            color: rgb(0, 0, 0); 
+        }
+
+        #deleteUserButton:hover {
+            background-color: #d11a1a;
         }
     </style>
 </head>
@@ -39,16 +48,6 @@
 
 <body>
 
-    <header>
-        <div class="profile-name">
-            
-            <a href="profil.html">
-                <img id="profilImage" src="./Bilder og design/user.png" alt="Profil">
-            </a>
-            <div id="userEmail"></div>
-        </div>
-        <!-- <button type="button" id="logoutButton" onclick="logout()">Logg ut</button> -->
-    </header>
     <ul>
         <li><a href="meny.html">Hjem</a></li>
         <li>
@@ -68,17 +67,20 @@
 
 
 
-    <h2>Endre eller slett brukerdata!</h2>
+    <h2>Du er registrert med følgende data:</h2>
+    <p>Ved behov, oppdater dine brukerdata</p>
 
     <input id="email" class="input-field" placeholder="E-post"><br>
     <input id="name" class="input-field" placeholder="Navn"><br>
     <input id="password" class="input-field" type="password" placeholder="Passord"><br>
     <input id="fylke" class="input-field" placeholder="Fylke"><br>
+   
 
-    <button type="button" id="updateUserButton">Lagre brukerdata</button>
-    <button type="button" id="deleteUserButton">Slett bruker</button>
-    <button type="button" id="avbrytButton">Avbryt</button>
+    <button type="button" id="updateUserButton">Lagre brukerdata</button>    
+    <button type="button" id="avbrytButton">Avbryt</button><br><br>
 
+    <h2>Ønsker du å slettes som bruker?</h2>
+    <button type="button" id="deleteUserButton">Slett min brukerprofil!</button>
 
     <script>
         const avbrytButton = document.getElementById("avbrytButton");
