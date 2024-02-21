@@ -20,9 +20,7 @@ class User {
   }
 
   async save() {
-
     /// TODO: What happens if the DBManager fails to complete its task?
-
     // We know that if a user object dos not have the ID, then it cant be in the DB.
     if (this.id == null) {
       return await DBManager.createUser(this);
@@ -33,7 +31,6 @@ class User {
 
 
   delete() {
-
     /// TODO: What happens if the DBManager fails to complete its task?
     DBManager.deleteUser(this);
   }
@@ -41,13 +38,6 @@ class User {
   async isKnownUser(){
     return await DBManager.userExists(this.email);
   }
-
-  // // hashe passord, crypto sha256
-  // hashPassword(password) {
-  //   const hash = crypto.createHash('sha256');
-  //   hash.update(password);
-  //   return hash.digest('hex');
-  // }
 
 };
 

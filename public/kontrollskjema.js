@@ -1,3 +1,15 @@
+
+function logout() {
+    // console.log("Log out");
+        sessionStorage.removeItem('userId');
+        window.location.href = 'index.html';
+}
+
+ 
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     // Finn alle celler med klasse "green-button"
     const greenButtons = document.querySelectorAll('.green-button');
