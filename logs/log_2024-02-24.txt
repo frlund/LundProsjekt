@@ -1,0 +1,5 @@
+4:43:58 PM | [32mGET[39m | /meny.html | IP: ::1 | Status: 200
+4:43:58 PM | [32mGET[39m | /meny.css | IP: ::1 | Status: 200
+4:43:58 PM | [32mGET[39m | /Bilder%20og%20design/user.png | IP: ::1 | Status: 200
+4:43:58 PM | [32mGET[39m | /Bilder%20og%20design/honey-bees-326334_1920.jpg | IP: ::1 | Status: 200
+4:43:58 PM | [32mGET[39m | /user/79 | IP: ::1 | Status: 200
