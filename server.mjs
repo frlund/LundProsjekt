@@ -31,6 +31,10 @@ server.get("/", (req, res, next) => { // A get request handler example)
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });
 
+server.get("/skjemaSertifisering.mjs",(req,res,next)=>{
+    res.sendFile("./modules/skjemaSertifisering.mjs").end();
+})
+
 server.listen(server.get('port'), function () { // Start the server 
     console.log('server running', server.get('port'));
 });

@@ -48,21 +48,29 @@ class DBManager {
         }
     }
 
+    // OPPDATERE BRUKER I DB
     async updateUser(user) {
         const client = new pg.Client(this.#credentials);
         try {
             await client.connect();
-            const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "password" = $3 where id = $4;', [user.name, user.email, user.pswHash, user.id]);
-
+            const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "fylke" = $5, "password" = $3 where id = $4;', [user.name, user.email, user.password, user.id, user.fylke]);
+            //const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "password" = $3 where id = $4;', [user.name, user.email, user.pswHash, user.id]);
+            
+            console.log("Rows affected:", output.rowCount);
+            if (output.rowCount === 0) {
+                console.error("No rows were updated"); // Logg ROWS hvis ingen rader ble oppdatert
+                throw new Error("No rows were updated");
+            }
             // Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
             // Of special intrest is the rows and rowCount properties of this object.
-
             //TODO Did we update the user?
 
         } catch (error) {
-            //TODO : Error handling?? Remember that this is a module seperate from your server 
+            console.error("Error updating user:", error);
+            throw error;
+             
         } finally {
-            client.end(); // Always disconnect from the database.
+            client.end(); 
         }
 
         return user;

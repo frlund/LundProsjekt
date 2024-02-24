@@ -15,3 +15,5 @@ class skjemaSertifisering {
 
     }
 }
+
+export default skjemaSertifisering; 

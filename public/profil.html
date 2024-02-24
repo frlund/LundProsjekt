@@ -41,6 +41,13 @@
         #deleteUserButton:hover {
             background-color: #d11a1a;
         }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 10px;
+            text-align: left; 
+        }
     </style>
 </head>
 
@@ -66,21 +73,22 @@
     </ul>
 
 
+    <div class="container">
+        <h2>Du er registrert med følgende data:</h2>
+        <p>Ved behov, oppdater dine brukerdata</p>
 
-    <h2>Du er registrert med følgende data:</h2>
-    <p>Ved behov, oppdater dine brukerdata</p>
+        <input id="email" class="input-field" placeholder="E-post"><br>
+        <input id="name" class="input-field" placeholder="Navn"><br>
+        <input id="password" class="input-field" type="password" placeholder="Passord"><br>
+        <input id="fylke" class="input-field" placeholder="Fylke"><br>
+    
 
-    <input id="email" class="input-field" placeholder="E-post"><br>
-    <input id="name" class="input-field" placeholder="Navn"><br>
-    <input id="password" class="input-field" type="password" placeholder="Passord"><br>
-    <input id="fylke" class="input-field" placeholder="Fylke"><br>
-   
+        <button type="button" id="updateUserButton">Lagre brukerdata</button>    
+        <button type="button" id="avbrytButton">Avbryt</button><br><br>
 
-    <button type="button" id="updateUserButton">Lagre brukerdata</button>    
-    <button type="button" id="avbrytButton">Avbryt</button><br><br>
-
-    <h2>Ønsker du å slettes som bruker?</h2>
-    <button type="button" id="deleteUserButton">Slett min brukerprofil!</button>
+        <h2>Ønsker du å slettes som bruker?</h2>
+        <button type="button" id="deleteUserButton">Slett min brukerprofil!</button>
+    </div>
 
     <script>
         const avbrytButton = document.getElementById("avbrytButton");
@@ -91,6 +99,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             getUser(sessionStorage.getItem('userId'));
+            console.log("UserId fra hentet1:", sessionStorage.getItem('userId'));
         });
 
         // HENT BRUKERDATA
@@ -107,34 +116,46 @@
 
             document.getElementById("email").value = user.email;
             document.getElementById("name").value = user.name;
-            document.getElementById("password").value = user.password;
+            // document.getElementById("password").value = user.password; // TODO HER KOMMER hashPassword- Fjerne denne eller unhashe??
             document.getElementById("fylke").value = user.fylke;
             console.log(user);
-            //TODO email og navn er 'NULL' ?
+            //TODO navn er 'NULL' ?
 
         }
 
+        
         //OPPDATERE BRUKERDATA
         const updateUserButton = document.getElementById("updateUserButton");
         updateUserButton.onclick = async function (e) {
             e.preventDefault(); 
 
-            const id = sessionStorage.getItem("userId");
+            const userId = sessionStorage.getItem("userId");
+            if (!userId) {
+                alert("Ingen bruker er logget inn.");
+                return;
+            }
+
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const fylke = document.getElementById("fylke").value;
 
-            const user = { id, name, email, password, fylke };
+            //Påkrevd inntasting av passord!
+            if (!password) {
+                alert ("Du må legge inn ditt passord for å oppdatere brukerinfo!")
+                return;
+            }
 
+            const user = { id: userId, name, email, password, fylke };
+                console.log("UserId som sendes med oppdateringsforespørselen:", userId);
             try {
-                const response = await putTo(`/user/${user.id}`, user);
+                const response = await putTo(`/user/${userId}`, user);
                 if (response.ok) {
                     console.log("Inndata som sendes:", JSON.stringify(user));
                     alert("Brukerdata er oppdatert!");
                 } else if (response.status == 409) {
                     console.log("Error 409, conflict!.");
-                    alert("Error 409, conflict!.");
+                    alert("Error 409, conflict!."); //TODO Bruk Middleware for feilkoder?
                 } else {
                     console.error("Feil ved oppdatering av bruker");
                     alert("Feil ved oppdatering av brukerdata");
@@ -145,31 +166,7 @@
             }
         }
 
-        //SLETTE BRUKER
-        const deleteUserButton = document.getElementById("deleteUserButton");
-        deleteUserButton.onclick = async function (e) {
-            e.preventDefault();
-            const userId = sessionStorage.getItem("userId");
-            try {
-                const response = await deleteTo(`/user/${userId}`);
-                // TODO Oppdatere feilmeldinger
-                if (response.ok) {
-                    console.log("Inndata som sendes:", JSON.stringify(user));
-                    alert("Bruker er slette!");
-                } else if (response.status == 409) {
-                    console.log("Error 409, conflict! Bruker ble IKKE slettet");
-                    alert("Error 409, conflict! Bruker ble IKKE slettet");
-                } else {
-                    console.error("Feil ved sletting av bruker");
-                    alert("Feil ved sletting av bruker");
-                }
-            } catch (error) {
-                console.error("Feil ved sletting av bruker:", error);
-                alert("Feil ved sletting av bruker");
-            }
-        }
-
-        
+                
         async function putTo(url, data) {
             const response = await fetch(url, {
                 method: 'PUT',
@@ -179,9 +176,40 @@
                 body: JSON.stringify(data)
             });
             return response;
-        }
+            }
 
-        // 
+  
+
+            //SLETTE BRUKER
+            const deleteUserButton = document.getElementById("deleteUserButton");
+            deleteUserButton.onclick = async function (e) {
+                e.preventDefault();
+
+                const confirmed = confirm("Vil slette brukerkontoen? Kan ikke angres!");
+
+                if (confirmed) {
+                    const userId = sessionStorage.getItem("userId");              
+                try {
+                    const response = await deleteTo(`/user/${userId}`);
+                    console.log(response);
+                    // TODO Oppdatere feilmeldinger
+                    if (response.status == 200) {
+                        //console.log("Inndata som sendes:", JSON.stringify(user));
+                        alert("Bruker er slette!");
+                    } else if (response.status == 409) {
+                        console.log("Error 409, conflict! Bruker ble IKKE slettet");
+                        alert("Error 409, conflict! Bruker ble IKKE slettet");
+                    } else {
+                        console.error("Feil ved sletting av bruker");
+                        alert("Feil ved sletting av bruker");
+                    }
+                } catch (error) {
+                    console.error("Feil ved sletting av bruker:", error);
+                    alert("Feil ved sletting av bruker");
+                    }
+                }
+            }
+
 
         async function deleteTo(url) {
             const response = await fetch(url, {

@@ -72,48 +72,48 @@ USER_API.get('/', (req, res, next) => {
     SuperLogger.log("A important msg", SuperLogger.LOGGING_LEVELS.CRTICAL);
 })
 
-
+// HENTE BRUKER/INFO
 USER_API.get('/:id', async (req, res, next) => {
     console.log("Her ##############################");
     const user = await DBManager.getUser(req.params.id);
     res.status(200).json(JSON.stringify(user)).end();
 });
-    // Tip: All the information you need to get the id part of the request can be found in the documentation 
-    // https://expressjs.com/en/guide/routing.html (Route parameters)
 
-    /// TODO: 
-    // Return user object
+    // TODO Oppdater BRUKER    
+    USER_API.put('/:id', async (req, res) => {
+        try {
+            const {id, name, email, password, fylke } = req.body;
+            const pswHash = DBManager.hashPassword(password);
+    
+            const updatedUserData = {
+                id,
+                name,
+                email,
+                password: pswHash,
+                fylke
+            };
+    
+            const updatedUser = await DBManager.updateUser(updatedUserData);    
+            res.status(200).json(updatedUser).end();
+            alert('Brukerdata er oppdatert!');
 
+     
 
-// This is using javascript object destructuring.
-// Recomend reading up https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#syntax
-// https://www.freecodecamp.org/news/javascript-object-destructuring-spread-operator-rest-parameter/
+            } catch (error) {
+                console.error("Feil ved oppdatering av bruker:", error);
+                res.status(500).json({ error: 'Feil ved oppdatering av brukerdata' }).end();
+            }
+        });
 
-
-
-    // TODO Oppdater BRUKER
-USER_API.put('/:id', (req, res) => {
-    const { id, name, email, password, fylke } = req.body;
-
-    const user = new User(); //TODO: The user info comes as part of the request
-
-    user.email = email;
-    user.fylke = fylke;
-    user.navn = name;
-    user.id = id;
-    user.pswHash = DBManager.hashPassword(password);
-    user.save();
-});
-
-USER_API.delete('/:id', (req, res) => {
-    /// TODO: Delete user.
-    const user = new User(); //TODO: Actual user
-
-    // TODO: Hente ut id fra URL
-    const params = req.params;
-    user.id = params["id"];
-
-    user.delete();
-});
+        USER_API.delete('/:id', async (req, res) => {
+      
+        const user = {};
+        user.id = req.params.id;
+        const updatedUser = await DBManager.deleteUser(user);    
+           
+            //user.delete();
+            res.status(200).json({msg:"ok"}).end();
+            alert('Brukerkontoen er slettet!');
+    });
 
 export default USER_API

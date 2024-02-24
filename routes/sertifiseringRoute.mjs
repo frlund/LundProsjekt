@@ -1,5 +1,5 @@
-// userRoute.mjs
-import crypto from 'crypto';
+// sertifiseringRoute.mjs
+
 import express from 'express';
 import User from '../modules/user.mjs';
 import Verifisering from '../modules/verifisering.mjs';
@@ -10,7 +10,7 @@ import { HTTPCodes } from '../modules/httpConstants.mjs';
 
 
 const VERIFISERING_API = express.Router();
-VERIFISERING_API.use(express.json()); // This makes it so that express parses all incoming payloads as JSON for this route.
+VERIFISERING_API.use(express.json()); 
 
 // OPPRETTE BRUKER
 VERIFISERING_API.post('/', async (req, res, next) => {

@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sett opp startfarger for kolonne 4 og 5
     const godkjentButtons = document.querySelectorAll('.green-button');
     godkjentButtons.forEach(button => {
-        button.style.backgroundColor = 'white';
+        button.style.backgroundColor = 'blue';
     });
 
     const ikkeGodkjentButtons = document.querySelectorAll('.red-button');
