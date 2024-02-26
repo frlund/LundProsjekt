@@ -49,6 +49,20 @@ server.post("/saveForm", async (req, res) => {
     }
 });
 
+// //Hente skjemadata
+server.get("/skjemaer/:userId", async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        // Hent skjemadata fra databasen basert på userId
+        const skjemaer = await DBManager.getSkjemaerForUser(userId);
+        res.status(200).json(skjemaer);
+    } catch (error) {
+        console.error("Feil ved henting av skjemadata:", error);
+        res.status(500).send("Feil ved henting av skjemadata.").end();
+    }
+});
+
 
 
 server.listen(server.get('port'), function () { // Start the server 

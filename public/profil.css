@@ -1,0 +1,169 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: monospace;
+    background-color: #fdfdfd;
+    overflow: auto;
+}
+
+header {
+    margin: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.profile-name {
+    display: flex;
+    align-items: center;
+}
+
+#profilImage {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+
+ul {
+    list-style: none;
+    background: #d7d7d7;
+    margin-top: 10px;
+}
+
+ul li {
+    display: inline-block;
+    position: relative;
+}
+
+ul li a {
+    display: block;
+    padding: 15px 25px;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+    font-size: 14px;
+    transition: background-color 0.4s ease;
+}
+
+ul li ul.dropdown li {
+    display: block;
+    text-align: left;
+}
+
+ul li ul.dropdown {
+    width: auto;
+    background: #d7d7d7;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    font-size: 12px;
+    text-align: left;
+}
+
+ul li a:hover {
+    background: #e5e5e5;
+    transition: background-color 0.2s ease;
+}
+
+ul li:hover ul.dropdown {
+    display: block;
+}
+
+.imageTextMeny {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+}
+
+.image-container {
+    text-align: center;
+    margin-top: -5px;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+
+#logoutButton {
+    background-color: #e7e7e7;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 8px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-radius: 5px;
+}
+
+#logoutButton:hover {
+    background-color: #ff0000;
+}
+
+input {
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: auto;
+}
+
+button,
+sertButton {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover,
+sertButton:hover {
+    background-color: #2d8031;
+}
+
+#deleteUserButton {
+    background-color: #ff0000;
+    color: rgb(0, 0, 0);
+}
+
+#deleteUserButton:hover {
+    background-color: #d11a1a;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+    .imageTextMeny {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+
+    ul li ul.dropdown {
+        background: #e1e1e1;
+        z-index: 1000;
+        font-size: 14px;
+    }
+}

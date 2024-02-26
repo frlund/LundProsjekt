@@ -5,56 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
-    <link rel="stylesheet" type="text/css" href="meny.css">
-    <style>
-        
-        input {
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            width: auto;
-        }
+    <link rel="stylesheet" type="text/css" href="profil.css">
 
-        ul {
-        list-style: none;
-        background: #d7d7d7;
-        margin-top: 10px; 
-        }
-
-        
-        button {
-            background-color: #007bff; 
-            color: white;
-            padding: 10px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #2d8031; 
-        }c
-
-        #deleteUserButton {
-            background-color: #ff0000; 
-            color: rgb(0, 0, 0); 
-        }
-
-        #deleteUserButton:hover {
-            background-color: #d11a1a;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 10px;
-            text-align: left; 
-        }
-        
-    </style>
 </head>
 
 
@@ -98,7 +50,12 @@
         
     </div>
 
-    <script>
+    <h2>Serifiseringsskjema</h2>
+    <div id="skjemaliste"></div>
+
+    
+    <script>  
+
         function logout() {
             sessionStorage.removeItem('userId');
             window.location.href = 'loggInn.html';
@@ -109,11 +66,16 @@
                 window.location.href = "meny.html";
         };
 
+        const userId = sessionStorage.getItem('userId');
+        if (!userId || userId === 'undefined') {
+            console.error("UserId er ikke gyldig.");
+        } 
 
         document.addEventListener('DOMContentLoaded', function () {
             getUser(sessionStorage.getItem('userId'));
-            console.log("UserId fra hentet1:", sessionStorage.getItem('userId'));
+            console.log("UserId:", sessionStorage.getItem('userId'));
         });
+
 
         // HENT BRUKERDATA
         async function getUser(userId) {
@@ -129,10 +91,10 @@
 
             document.getElementById("email").value = user.email;
             document.getElementById("name").value = user.name;
-            // document.getElementById("password").value = user.password; // TODO HER KOMMER hashPassword- Fjerne denne eller unhashe??
+            
             document.getElementById("fylke").value = user.fylke;
             console.log(user);
-            //TODO navn er 'NULL' ?
+            
 
         }
 
@@ -193,7 +155,7 @@
 
   
 
-            //SLETTE BRUKER
+            //DELETE USER
             const deleteUserButton = document.getElementById("deleteUserButton");
             deleteUserButton.onclick = async function (e) {
                 e.preventDefault();
@@ -233,7 +195,59 @@
             });
             return response;
         }
-    </script>
+
+
+       // GET SKJEMAER
+       async function getSkjemaer(userId) {
+    try {
+        // Send forespørsel til serveren for å hente skjemadata
+        const response = await fetch(`/skjemaer/${userId}`);
+        const skjemaer = await response.json();
+
+        // Finn HTML-elementet der skjemadataene skal vises
+        const skjemaliste = document.getElementById('skjemaliste');
+
+        // Gå gjennom hvert skjema og opprett HTML-elementer for visning
+        skjemaer.forEach(skjema => {
+            // Opprett en <div> for hvert skjema
+            const skjemaelement = document.createElement('div');
+            skjemaelement.classList.add('skjema');
+
+            // Opprett en knapp for å vise skjemainnholdet
+            const knapp = document.createElement('button');
+            knapp.textContent = `Kontrolldato: ${skjema.dato}`;
+            knapp.classList.add('closeButton');
+            knapp.addEventListener('click', () => {
+                skjemaelement.innerHTML = `
+                    <h3>Skjemainformasjon</h3>
+                    <p><strong>Bigårdnummer/navn:</strong> ${skjema.bigardnummer}</p>
+                    <p><strong>Lokasjon:</strong> ${skjema.lokasjon}</p>
+                    <p><strong>Dato for kontroll:</strong> ${skjema.dato}</p>
+                    <p><strong>Antall kuber kontrollert:</strong> ${skjema.kontroll}</p>
+                    <p><strong>Fulgt kontrollskjemaet:</strong> ${skjema.skjema}</p>
+                    <p><strong>Mistanke/funn av Lukket yngelråte:</strong> ${skjema.yngelrate_lukket}</p>
+                    <p><strong>Mistanke/funn av Åpen yngelråte:</strong> ${skjema.yngelrate_apen}</p>
+                    <p><strong>Mistanke/funn av Steinyngel:</strong> ${skjema.steinyngel}</p>
+                    <p><strong>Mistanke/funn av Liten Kubebille:</strong> ${skjema.kubebille}</p>
+                    <p><strong>Mistanke/funn av Varroa:</strong> ${skjema.varroa}</p>
+                    <p><strong>Mistanke/funn av Trakemidd:</strong> ${skjema.trakemidd}</p>
+                    <p><strong>Egne notater:</strong> ${skjema.notater}</p>
+                `;               
+            });
+
+            
+            skjemaelement.appendChild(knapp);
+            skjemaliste.appendChild(skjemaelement);
+        });
+    } catch (error) {
+        console.error("Feil ved henting av skjemadata:", error);
+    }
+}
+
+    getSkjemaer(userId);
+
+
+</script>
 </body>
 
 

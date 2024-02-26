@@ -232,6 +232,21 @@ class DBManager {
             client.end();
         }
     }
+
+    async getSkjemaerForUser(userId) {
+        const client = new pg.Client(this.#credentials);
+        
+        try {
+            await client.connect();
+            const output = await client.query('SELECT * FROM "public"."skjemaSertifisering" WHERE "userId" = $1;', [userId]);
+            return output.rows;
+        } catch (error) {
+            SuperLogger.log(`Error fetching skjemadata for user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            throw error;
+        } finally {
+            client.end();
+        }
+    }
     
 
     hashPassword(password) {
