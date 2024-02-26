@@ -31,7 +31,10 @@
     <!-- <h2>Serifiseringsskjema</h2> -->
     <p></p>
 
-<form id="myForm">
+<form id="myForm" action="/saveForm" method=" POST">
+    <label for="userId">UserId</label>
+    <input type="text" id="userId" name="userId" value="" readonly required>
+    
     <label for="bigardnummer">Bigårdsnummer/navn:</label>
     <input type="text" id="bigardnummer" name="bigardnummer" required>
 

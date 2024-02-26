@@ -4,9 +4,12 @@ import 'dotenv/config'
 import express from 'express';
 import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
-import autentisering from './modules/autentisering.mjs';
 import DBManager from './modules/storageManager.mjs';
 import session from 'express-session';
+import printDeveloperStartupInportantInformationMSG from "./modules/developerHelpers.mjs";
+
+
+printDeveloperStartupInportantInformationMSG();
 
 // Server
 const server = express();
@@ -28,12 +31,25 @@ server.use(express.static('public')); // Defining a folder that will contain sta
 server.use("/user", USER_API); // Telling the server to use the USER_API (all urls that uses this codewill have to have the /user after the base address)
 
 server.get("/", (req, res, next) => { // A get request handler example)
+    SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });
 
-server.get("/skjemaSertifisering.mjs",(req,res,next)=>{
-    res.sendFile("./modules/skjemaSertifisering.mjs").end();
-})
+// LAGRE SKJEMA SERTIFISERING
+server.post("/saveForm", async (req, res) => {
+    const formData = req.body;
+
+    try {
+        await DBManager.createskjemaSertifisering(formData);
+        res.status(200).send("Skjemadata er lagret.").end();
+    } catch (error) {
+        console.error("Feil ved lagring av skjemadata:", error);
+        res.status(500).send("Feil ved lagring av skjemadata.").end();
+        return;
+    }
+});
+
+
 
 server.listen(server.get('port'), function () { // Start the server 
     console.log('server running', server.get('port'));

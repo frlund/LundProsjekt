@@ -81,7 +81,15 @@ body {
 
         /* responsivt design */
         @media screen and (max-width: 600px) {
+            p {
+                font-size: 1em; /* Mindre fontstørrelse for vanlig tekst på mindre skjermer */
+            }
+        
+            p2 {
+                font-size: 1.4em; /* Mindre fontstørrelse for større tekst på mindre skjermer */
+            }
+        
             .overlay {
-                width: 90%; 
+                width: 90%;
             }
         }

@@ -12,6 +12,7 @@
             font-family: monospace;
             background-color: #fdfdfd;
             position: relative;
+            overflow: auto;
         }
 
         h3 {
@@ -93,8 +94,8 @@
         
     </div>
 
-
     <script>
+    
     const loggInButton = document.getElementById("loggInButton");
     loggInButton.onclick = async function (e) {
         const email = document.getElementById("email").value;
@@ -117,16 +118,16 @@
 
                 if (userId) {
                     sessionStorage.setItem('userId', userId);
-                    console.log("Brukerens ID lagret i sessionStorage:", userId);
+                    console.log("userID saved in sessionStorage:", userId);
                 }
                    window.location.href = "meny.html";
             } else {
-                console.error("Påloggingsfeil 1");
-                alert("Feil ved innlogging");
+                console.error("ERROR login");
+                alert("ERROR Check username and password");
             }
         } catch (error) {
-            console.error("Feil 3:", error);
-            alert("Feil 4!");
+            console.error("Log error:", error);
+            alert("ERROR login user!");
         }
     }
 </script>

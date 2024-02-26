@@ -1,5 +1,6 @@
 body {
     font-family: monospace;
+    overflow: auto;
 }
 form {
     max-width: 600px;

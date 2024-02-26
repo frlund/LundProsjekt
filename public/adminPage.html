@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Side</title>
+    <link rel="stylesheet" type="text/css" href="meny.css">
+
+</head>
+<body>
+    <header>
+        <div class="profile-info">
+            <div class="profile-name">
+                <a href="profil.html">
+                    <img id="profilImage" src="./Bilder og design/user.png" alt="Profil">
+                </a>
+
+                <div id="userEmail"></div>
+            </div>
+        </div>
+        <button type="button" id="logoutButton" onclick="logout()">Logg ut</button>
+    </header>
+    
+    <ul>
+        <li><a href="meny.html">Hjem</a></li>
+        <li>
+            <a href="#">Sykdommer</a>
+            <ul class="dropdown">
+                <li><a href="./sykdommer/lukketYR.html">Lukket yngelråte</a></li>
+                <li><a href="./sykdommer/aapenYR.html">Åpen yngelråte</a></li>
+                <li><a href="./sykdommer/steinyngel.html">Steinyngel</a></li>
+                <li><a href="./sykdommer/kubebille.html">Liten kubebille</a></li>
+                <li><a href="./sykdommer/Csykdommer.html">C-sykdommer</a></li>
+                <li><a href="./sykdommer/andreSykdommer.html">Andre sykdommer</a></li>
+            </ul>
+        </li>
+        <li><a href="Kontrollskjema.html">Kontrollskjema</a></li>
+        <li><a href="Sertifisering.html">Sertifisering</a></li>
+    </ul>
+    
+    <h1>AdminPage</h1>
+    <button type="button" id="brukerAdmButton" onclick="visBrukeradministrasjon()">Brukeradministrasjon</button>
+    <div id="brukerliste"></div>
+
+    <script>
+        function visBrukeradministrasjon() {
+            fetch('/admin/brukere')
+                .then(response => response.json())
+                .then(brukere => {
+                    const brukerliste = document.getElementById('brukerliste');
+                    brukerliste.innerHTML = ''; // Tømmer listen før du legger til brukere
+
+                    brukere.forEach(bruker => {
+                        const brukerElement = document.createElement('div');
+                        brukerElement.textContent = `Navn: ${bruker.navn}, E-post: ${bruker.epost}`;
+
+                        // Legg til en knapp for å endre passordet til denne brukeren
+                        const endrePassordKnapp = document.createElement('button');
+                        endrePassordKnapp.textContent = 'Endre passord';
+                        endrePassordKnapp.onclick = () => endrePassord(bruker.id); // Knytt funksjonen for endring av passord til knappen
+
+                        brukerElement.appendChild(endrePassordKnapp);
+
+                        brukerliste.appendChild(brukerElement);
+                    });
+                })
+                .catch(error => console.error('Feil ved henting av brukere:', error));
+        }
+
+        function endrePassord(brukerId) {
+            const nyttPassord = prompt('Skriv inn det nye passordet:');
+
+            if (nyttPassord) {
+                fetch(`/admin/brukere/${brukerId}/passord`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nyttPassord })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Passordet ble endret');
+                    } else {
+                        alert('Det oppstod en feil ved endring av passord');
+                    }
+                })
+                .catch(error => console.error('Feil ved endring av passord:', error));
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('userId');
+            window.location.href = 'loggInn.html';
+        }
+
+        const userId = sessionStorage.getItem('userId');
+        console.log("Hentet ADM-ID fra sessionStorage:", userId);
+        if (!userId || userId === 'undefined') {
+            window.location.href = "loggInn.html";
+        } else {
+            console.log("Bruker er autentisert. Tillat tilgang til meny.html.");
+        }
+
+        window.onload = function() {
+            fetch(`/user/${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Brukerdata mottatt fra serveren:", data);
+                    const userEmail = JSON.parse(data).email;
+                    const userEmailElement = document.getElementById('userEmail');
+                    if (userEmailElement) {
+                        userEmailElement.textContent = `${userEmail}`;
+                        console.log(userEmail);
+                    } else {
+                        console.error("Elementet med ID 'userEmail' eksisterer ikke.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Feil ved henting av brukerdata:", error);
+                });
+        };
+    </script>
+</body>
+</html>

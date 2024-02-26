@@ -19,6 +19,7 @@
             </div>
         </div>
         <button type="button" id="logoutButton" onclick="logout()">Logg ut</button>
+        
     </header>
     
     <ul>
@@ -47,7 +48,7 @@
         </div>
     </div>
 
-    <script>
+<script>
         function logout() {
         // console.log("Log out");
         sessionStorage.removeItem('userId');
@@ -62,7 +63,7 @@
             console.log("Bruker er autentisert. Tillat tilgang til meny.html.");
         }
 
-        window.onload = function() {
+    window.onload = function() {
         fetch(`/user/${userId}`)
             .then(response => response.json())
             .then(data => {
@@ -73,13 +74,13 @@
                     userEmailElement.textContent = `${userEmail}`;
                     console.log(userEmail);
                 } else {
-                    console.error("Elementet med ID 'userEmail' eksisterer ikke.");
-                }
+                    console.error("Elementet med ID 'userEmail' eksisterer ikke.");                }
             })
             .catch(error => {
                 console.error("Feil ved henting av brukerdata:", error);
+
         });
-    };
+};
     </script>
 </body>
 </html>

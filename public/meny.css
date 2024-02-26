@@ -3,6 +3,7 @@ body {
     margin: 0;
     font-family: monospace;
     background-color: #fdfdfd;
+    overflow: auto;
 }
 
 header {
@@ -114,24 +115,14 @@ ul li:hover ul.dropdown {
 }
 
 @media screen and (max-width: 600px) {
-    .tekstfeltIndex {
-        padding: auto;
-    }
-
-    h1 {
-        font-size: medium;
-    }
-
     .imageTextMeny {
-        font-size: 0.6em;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        font-size: 0.8em;
+        padding: 10px;
     }
 
     ul li ul.dropdown {
         background: #e1e1e1;
         z-index: 1000;
+        font-size: 14px;
     }
 }

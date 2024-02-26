@@ -1,48 +1,54 @@
+
+
 // Sertifisering LAGRE JSON
+const userId = sessionStorage.getItem('userId');
+console.log("Hentet brukerens ID fra sessionStorage:", userId);
+if (!userId || userId === 'undefined') {
+    window.location.href = "loggInn.html";
+} else {
+    console.log("UserId autentisert sessionStorage.");
+}
+
+const userIdInput = document.getElementById('userId');
+if (userIdInput) {
+    userIdInput.value = userId;
+} else {
+    console.error("Elementet med ID 'userId' eksisterer ikke.");
+}
 
 document.getElementById("myForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Forhindrer skjemadata å bli sendt på vanlig måte
+    event.preventDefault();   
 
-    
+    // Konverter FormData til JSON
+    function formDataToJson(formData) {
+        const json = {};
+        for (const [key, value] of formData.entries()) {
+            json[key] = value;
+        }
+        return json;
+    }
+    const formData = new FormData(this);
+    const jsonData = formDataToJson(formData);    
+
+    jsonData.userId = userId;
 
     try {
-       
-
-        const response = await fetch("/sertifisering //lenken URL", { 
-            method: "GET",
-            
+        const response = await fetch("/saveForm", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonData)
         });
 
         if (response.ok) {
-            // Vis bekreftelsesmelding hvis alt gikk greit
+            alert("Skjemadata er lagret.");
             document.getElementById("myForm").style.display = "none";
             document.getElementById("confirmation").style.display = "block";
         } else {
-            // Håndter feil hvis noe gikk galt
-            throw new Error("Noe gikk galt ved sending av skjemaet. Vennligst prøv igjen senere.");
+            throw new Error("Noe gikk galt ved sending av skjemaet.");
         }
     } catch (error) {
-        // Vis feilmelding
         alert(error.message);
     }
 });
-
-//     fetch("til database", {
-//         method: "POST",
-//         body: formData
-//     })
-//     .then(function(response) {
-//         if (response.ok) {
-//             // Vis bekreftelsesmelding hvis alt gikk greit
-//             document.getElementById("myForm").style.display = "none";
-//             document.getElementById("confirmation").style.display = "block";
-//         } else {
-//             // Håndter feil hvis noe gikk galt
-//             throw new Error("Noe gikk galt ved sending av skjemaet. Vennligst prøv igjen senere.");
-//         }
-//     })
-//     .catch(function(error) {
-//         // Vis feilmelding
-//         alert(error.message);
-//     });
-// });

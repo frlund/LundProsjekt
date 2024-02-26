@@ -36,7 +36,7 @@ class SuperLogger {
         CRITICAL: 999   // We output only errors. 
     };
 
-    #globalThreshold = SuperLogger.LOGGING_LEVELS.NORMAL;
+    #globalThreshold = SuperLogger.LOGGING_LEVELS.IMPORTANT;
     #loggers;
 
     //#region Using a variation on the singelton pattern
@@ -50,29 +50,26 @@ class SuperLogger {
         if (SuperLogger.instance == null) {
             SuperLogger.instance = this;
             this.#loggers = [];
-            this.#globalThreshold = SuperLogger.LOGGING_LEVELS.NORMAL;
+            this.#globalThreshold = SuperLogger.LOGGING_LEVELS.IMPORTANT;
         }
         return SuperLogger.instance;
     }
     //#endregion
 
-    static log(msg, logLevl = SuperLogger.LOGGING_LEVELS.NORMAL) {
+    static log(msg, logLevl = SuperLogger.LOGGING_LEVELS.IMPORTANT) {
         let logger = new SuperLogger();
         if (logger.#globalThreshold > logLevl) {
             return;
         }
         logger.#writeToLog(msg);
     }
-
-
-    // This is our automatic logger, it outputs at a "normal" level
-    // It is just a convinent wrapper around the more generic createLimitedRequestLogger function
+     // It is just a convinent wrapper around the more generic createLimitedRequestLogger function
     createAutoHTTPRequestLogger() {
-        return this.createLimitedHTTPRequestLogger({ threshold: SuperLogger.LOGGING_LEVELS.NORMAL });
+        return this.createLimitedHTTPRequestLogger({ threshold: SuperLogger.LOGGING_LEVELS.IMPORTANT });
     }
 
     createLimitedHTTPRequestLogger(options) {
-        const threshold = options.threshold || SuperLogger.LOGGING_LEVELS.NORMAL;
+        const threshold = options.threshold || SuperLogger.LOGGING_LEVELS.IMPORTANT;
         return (req, res, next) => {
             if (this.#globalThreshold > threshold) {
                 return;
