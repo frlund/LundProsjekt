@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
+    
     <link rel="stylesheet" type="text/css" href="profil.css">
+    
 
 </head>
 
-
-
 <body>
+    
     
     <ul>
         <li><a href="meny.html">Hjem</a></li>
@@ -33,7 +34,7 @@
 
 
     <div class="container">
-        <h2>Du er registrert med følgende brukerdata:</h2>
+        <h2>BRUKERADMINISTRASJON:</h2>
         <p>Ved behov, oppdater dine brukerdata</p>
 
         <input id="email" class="input-field" placeholder="E-post"><br>
@@ -45,13 +46,16 @@
         <button type="button" id="updateUserButton">Lagre brukerdata</button>    
         <button type="button" id="avbrytButton">Avbryt</button>
        
-        <button type="button" id="deleteUserButton">Slett min brukerprofil!</button>
+        <button type="button" id="deleteUserButton">Slett bruker!</button>
         
         
-    </div>
+    </div> <br>
 
-    <h2>Serifiseringsskjema</h2>
-    <div id="skjemaliste"></div>
+    <div class="container">
+        <h2>ARKIV</h2>
+        <p> Her finner du dine lagrede sertifiseringer</p>
+        <div id="skjemaliste"></div>
+    </div>
 
     
     <script>  

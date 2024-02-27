@@ -19,8 +19,8 @@ body {
         p {
             color: brown;
             margin-bottom: 10px; 
-            line-height: 1.6; 
-            font-size: 1.4em;
+            line-height: 1.4; 
+            font-size: 1.2em;
         }
 
         p2 {
@@ -35,7 +35,7 @@ body {
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%; 
-            max-width: 60%;           
+            max-width: 80%;           
         } 
 
         .overlay-content {
@@ -82,11 +82,11 @@ body {
         /* responsivt design */
         @media screen and (max-width: 600px) {
             p {
-                font-size: 1em; /* Mindre fontstørrelse for vanlig tekst på mindre skjermer */
+                font-size: 1em; 
             }
         
             p2 {
-                font-size: 1.4em; /* Mindre fontstørrelse for større tekst på mindre skjermer */
+                font-size: 1.4em; 
             }
         
             .overlay {
