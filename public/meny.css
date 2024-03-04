@@ -34,7 +34,7 @@ header {
 
 ul {
     list-style: none;
-    background: #de9d37;
+    background: #b5b5b5;
     margin-top: -10px; 
     border-radius: 10px;
 }
@@ -61,7 +61,7 @@ ul li ul.dropdown li {
 
 ul li ul.dropdown {
     width: auto;
-    background: #de9d37;
+    background: #b5b5b5;
     position: absolute;
     z-index: 1000;
     display: none;
@@ -70,9 +70,9 @@ ul li ul.dropdown {
 }
 
 ul li a:hover {
-    background: #ffd745;
+    background: #cecece;
     transition: background-color 0.5s ease;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 ul li:hover ul.dropdown {
@@ -102,7 +102,7 @@ ul li:hover ul.dropdown {
 }
 
 #logoutButton {
-    background-color: #de9d37;
+    background-color: #b5b5b5;
     color: rgb(0, 0, 0);
     border: none;
     padding: 8px 10px;
