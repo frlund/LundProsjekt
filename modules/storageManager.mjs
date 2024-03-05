@@ -14,7 +14,7 @@ class DBManager {
         console.log(this.#credentials);
         this.#credentials = {
             connectionString,
-            ssl: (process.env.DB_SSL === "true") ? process.env.DB_SSL : false
+            ssl: (process.env.DB_SSL === "true") ? process.env.DB_SSL : true
         };
     }
 
@@ -148,7 +148,6 @@ class DBManager {
             await client.connect();
             const output = await client.query('INSERT INTO "public"."Verifisering"("date", "userId", "file") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;', [new Date(), userId, verifiseringString]);
 
-            // (https://node-postgres.com/apis/result)
             if (output.rows.length == 1) {
                 // We stored the user in the DB.
                 user.id = output.rows[0].id;
