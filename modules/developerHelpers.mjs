@@ -5,10 +5,10 @@ export default function printDeveloperStartupInportantInformationMSG() {
 
     drawLine("#", 20);
 
-    SuperLogger.log(`Server enviorment ${process.env.ENVIRONMENT}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
+    SuperLogger.log(`Server enviorment ${process.env.ENVIORMENT}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
 
-    if (process.env.ENVIRONMENT == "local") {
-        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT); //TODO HASHE PASSORD til DB??
+    if (process.env.ENVIORMENT == "local") {
+        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT); //TODO HASHE PASSORD
     } else {
         SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
     }

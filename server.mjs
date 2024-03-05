@@ -31,9 +31,13 @@ server.use(express.static('public'));
 server.use("/user", USER_API); 
 
 server.get("/", (req, res, next) => { // A get request handler example)
-    SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
+    // SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });
+
+server.get("/skjemaSertifisering.mjs",(req,res,next)=>{
+    res.sendFile("./modules/skjemaSertifisering.mjs").end();
+})
 
 // LAGRE SKJEMA SERTIFISERING
 server.post("/saveForm", async (req, res) => {

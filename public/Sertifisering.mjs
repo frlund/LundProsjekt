@@ -42,11 +42,10 @@ document.getElementById("myForm").addEventListener("submit", async function(even
         });
 
         if (response.ok) {
-            alert("Skjemadata er lagret.");
-            document.getElementById("myForm").style.display = "none";
-            document.getElementById("confirmation").style.display = "block";
-        } else {
-            throw new Error("Noe gikk galt ved sending av skjemaet.");
+            alert("Dine data er nå lagret på din profilside");
+            window.location.reload();
+    } else {
+        throw new Error("Noe gikk galt ved sending av skjemaet.");
         }
     } catch (error) {
         alert(error.message);

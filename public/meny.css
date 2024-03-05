@@ -52,6 +52,23 @@ ul li a {
     text-align: left;
     font-size: 14px;
     transition: background-color 0.4s ease;
+    position: relative;
+}
+
+ul li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: rgb(90, 90, 90);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease; 
+}
+
+ul li a:hover::after {
+    width: 100%; 
 }
 
 ul li ul.dropdown li {
@@ -86,7 +103,7 @@ ul li:hover ul.dropdown {
     transform: translate(-50%, -50%);
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 20px;
+    padding: 40px;
 }
 
 .image-container {
@@ -102,7 +119,7 @@ ul li:hover ul.dropdown {
 }
 
 #logoutButton {
-    background-color: #b5b5b5;
+    background-color: #eeeeee;
     color: rgb(0, 0, 0);
     border: none;
     padding: 8px 10px;

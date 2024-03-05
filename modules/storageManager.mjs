@@ -30,7 +30,7 @@ class DBManager {
             console.log(output.rows[0]);
             return output.rows[0];
         } catch(error) {
-            SuperLogger.log(`Error "loading"" user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error "loading"" user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
             
         } finally {
@@ -46,7 +46,7 @@ class DBManager {
             console.log(output.rows[0]);
             return output.rows.length > 0;
         } catch(error) {
-            SuperLogger.log(`Error checking user exists: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error checking user exists: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -71,7 +71,7 @@ class DBManager {
             //TODO Did we update the user?
 
         } catch (error) {
-            SuperLogger.log(`Error updating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error updating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
              
         } finally {
@@ -94,7 +94,7 @@ class DBManager {
             //TODO: Did the user get deleted?
 
         } catch (error) {
-            SuperLogger.log(`Error deleting user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error deleting user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -115,7 +115,7 @@ class DBManager {
                 user.id = output.rows[0].id;
             }
         } catch (error) {
-            SuperLogger.log(`Error creating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error creating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -132,7 +132,7 @@ class DBManager {
             const output = await client.query('SELECT * FROM "public"."Users" WHERE email = $1 AND password = $2;', [email, hashedPassword]);
             return output.rows[0]; 
         } catch(error) {
-            SuperLogger.log(`Error validating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error validating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); 
@@ -154,7 +154,7 @@ class DBManager {
             }
 
         } catch (error) {
-            SuperLogger.log(`Error createVerifisering: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error createVerifisering: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -225,7 +225,7 @@ class DBManager {
                 throw new Error("No rows were inserted");
             }
         } catch (error) {
-            SuperLogger.log(`Error creating sertifisering: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error creating sertifisering: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end();
@@ -240,7 +240,7 @@ class DBManager {
             const output = await client.query('SELECT * FROM "public"."skjemaSertifisering" WHERE "userId" = $1;', [userId]);
             return output.rows;
         } catch (error) {
-            SuperLogger.log(`Error fetching skjemadata for user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error fetching skjemadata for user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end();
