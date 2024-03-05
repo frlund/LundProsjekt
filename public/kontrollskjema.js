@@ -7,7 +7,7 @@ function logout() {
 document.addEventListener('DOMContentLoaded', function () {
     const greenButtons = document.querySelectorAll('.green-button');
 
-    // Legg til klikk-lytter for hver grønn knapp
+   
     greenButtons.forEach(button => {
         button.addEventListener('click', () => {
             if (button.style.backgroundColor === 'green') {

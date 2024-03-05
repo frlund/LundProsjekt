@@ -14,17 +14,19 @@ USER_API.use(express.json()); // This makes it so that express parses all incomi
 // logge inn bruker
 USER_API.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log('Innloggingsforespørsel mottatt:', { email });
+    SuperLogger.log(`Innloggingsforespørsel mottatt for bruker: ${email}`, SuperLogger.LOGGING_LEVELS.NORMAL);
+
     try {
         const user = await DBManager.validateUser(email, password);
         if (user) {
-            console.log('Innlogging vellykket:', { email });
-            res.status(200).json({ message: 'Innlogging vellykket', user }).end();
+            SuperLogger.log(`Succsess Login: ${email}`, SuperLogger.LOGGING_LEVELS.NORMAL);
+            res.status(200).json({ message: 'Succsess login', user }).end();
         } else {
-            console.log('Feil brukernavn eller passord:', { email });
+            SuperLogger.log(`WRONG username or password: ${email}`, SuperLogger.LOGGING_LEVELS.NORMAL);
             res.status(401).json({ error: 'Feil brukernavn eller passord' }).end();
         }
     } catch (error) {
+        SuperLogger.log(`WRONG login: ${email}, feilmelding: ${error.message}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
         console.error('Feil ved innlogging:', error);
         res.status(500).json({ error: 'Noe gikk galt ved innlogging' }).end();
     }
@@ -39,6 +41,7 @@ USER_API.post('/', async (req, res, next) => {
         try {            
             const emailExists = await DBManager.userExists(email);
             if (emailExists) {
+                SuperLogger.log('Eposten eksisterer allerede', SuperLogger.LOGGING_LEVELS.NORMAL);
                 return res.status(HTTPCodes.ClientSideErrorRespons.Conflict).send("Eposten eksisterer allerede").end();
             }            
             let user = new User();
@@ -49,14 +52,17 @@ USER_API.post('/', async (req, res, next) => {
             user.pswHash = DBManager.hashPassword(password);
 
             user = await user.save();
+            SuperLogger.log('Ny bruker opprettet', SuperLogger.LOGGING_LEVELS.NORMAL);
             res.status(200).json(JSON.stringify(user)).end();
 
         } catch (error) {
-            console.error("Feil ved oppretting av bruker:", error);
-            res.status(HTTPCodes.ServerSideErrorResponse.InternalServerError).send("Feil ved oppretting av bruker").end();
+            SuperLogger.log('Error - user not created ' + error.message, SuperLogger.LOGGING_LEVELS.CRITICAL);
+            console.error("Error - user not created", error);
+            res.status(HTTPCodes.ServerSideErrorResponse.InternalServerError).send("Error - user not created").end();
         }
     } else {
-        res.status(400).send("Mangler nødvendig informasjon").end();
+        SuperLogger.log('Missing user informasjon (create user))', SuperLogger.LOGGING_LEVELS.NORMAL);
+        res.status(HTTPCodes.ClientSideErrorResponse.BadRequest).send("Missing userInformation").end();
     }
 });    
 
@@ -65,6 +71,19 @@ USER_API.get('/meny.html', autentisering, (req, res) => {
     console.log('Bruker autentisert.');
     res.sendFile(__dirname + '/public/meny.html'); 
 });
+
+// Logg  BrukerInnlogging succsess
+USER_API.use((req, res, next) => {
+    SuperLogger.log(`Login: ${req.method} ${req.originalUrl} av bruker: ${req.user.email}`, SuperLogger.LOGGING_LEVELS.NORMAL);
+    next();
+});
+
+// Logg  BrukerInnlogging ERROR
+USER_API.use((err, req, res, next) => {
+    SuperLogger.log(`ERROR login: ${err.message}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
+    res.status(403).json({ error: 'Tilgang nektet' }).end();
+});
+
 
 USER_API.get('/', (req, res, next) => {
     console.log("Test");
