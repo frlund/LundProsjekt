@@ -17,7 +17,7 @@ header {
 
 ul {
     list-style: none;
-    background: #de9d37;
+    background: #b5b5b5;
     margin-top: 10px;
     border-radius: 10px;
 }
@@ -44,7 +44,7 @@ ul li ul.dropdown li {
 
 ul li ul.dropdown {
     width: auto;
-    background: #de9d37;
+    background: #b5b5b5;
     position: absolute;
     z-index: 1000;
     display: none;
@@ -55,7 +55,7 @@ ul li ul.dropdown {
 }
 
 ul li a:hover {
-    background: #ffd745;
+    background: #cecece;
     transition: background-color 0.5s ease;
     border-radius: 10px;
 }
@@ -75,7 +75,7 @@ input {
 
 button,
 sertButton {
-    background-color: #de9d37;
+    background-color: #b9b9b9;
     color: rgb(0, 0, 0);
     padding: 10px 20px;
     margin: 8px 0;

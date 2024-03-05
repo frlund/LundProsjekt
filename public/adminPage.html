@@ -48,7 +48,7 @@
                 .then(response => response.json())
                 .then(brukere => {
                     const brukerliste = document.getElementById('brukerliste');
-                    brukerliste.innerHTML = ''; // Tømmer listen før du legger til brukere
+                    brukerliste.innerHTML = ''; 
 
                     brukere.forEach(bruker => {
                         const brukerElement = document.createElement('div');
