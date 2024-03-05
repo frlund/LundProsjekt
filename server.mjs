@@ -17,8 +17,8 @@ const port = (process.env.PORT || 8080);
 server.use(express.json());
 server.set('port', port);
 
-const logger = new SuperLogger(); // Enable logging for server
-server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
+const logger = new SuperLogger();
+server.use(logger.createAutoHTTPRequestLogger()); 
 
 server.use(session({ // FL- middleware for autentisering
     secret: 'hemmelig', // Dette bør være en unik og sikker verdi
@@ -26,9 +26,9 @@ server.use(session({ // FL- middleware for autentisering
     saveUninitialized: true
 }));
 
-server.use(express.static('public')); // Defining a folder that will contain static files.
+server.use(express.static('public')); 
 
-server.use("/user", USER_API); // Telling the server to use the USER_API (all urls that uses this codewill have to have the /user after the base address)
+server.use("/user", USER_API); 
 
 server.get("/", (req, res, next) => { // A get request handler example)
     SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
@@ -62,8 +62,6 @@ server.get("/skjemaer/:userId", async (req, res) => {
         res.status(500).send("Feil ved henting av skjemadata.").end();
     }
 });
-
-
 
 server.listen(server.get('port'), function () { // Start the server 
     console.log('server running', server.get('port'));
