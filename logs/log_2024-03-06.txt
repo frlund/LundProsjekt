@@ -39,3 +39,10 @@
 7:34:47 AM | [32mGET[39m | /Kontrollskjema.html | IP: ::1 | Status: 200
 7:34:47 AM | [32mGET[39m | /meny.css | IP: ::1 | Status: 200
 7:34:47 AM | [32mGET[39m | /kontrollskjema.js | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgres://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com
+####################
+9:33:13 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:33:13 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:33:43 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
