@@ -132,3 +132,22 @@ Database connection  postgresql://postgres:Kaffekopp@localhost:5432/sertifiserin
 10:32:09 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
 10:32:13 AM | [32mGET[39m | / | IP: ::1 | Status: 200
 10:32:13 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering
+####################
+10:59:19 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+10:59:19 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+10:59:40 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+11:02:22 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+11:02:22 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+11:02:36 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering
+####################
+11:04:46 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+11:04:46 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+11:04:50 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+11:04:50 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+11:05:03 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
