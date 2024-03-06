@@ -110,3 +110,12 @@ Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB
 10:13:59 AM | [32mGET[39m | / | IP: ::1 | Status: 200
 10:13:59 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
 10:14:23 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+####################
+Database connection  postgresql://postgres:Kaffekopp@localhost:5432/sertifisering
+10:17:35 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+10:17:35 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+10:17:41 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+10:17:41 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+10:17:57 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
