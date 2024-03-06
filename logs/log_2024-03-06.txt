@@ -284,3 +284,10 @@ Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB
 1:25:56 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
 1:26:24 PM | [32mGET[39m | / | IP: ::1 | Status: 200
 1:26:24 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+2:14:25 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+2:14:25 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+2:14:36 PM | [33mPOST[39m | /user | IP: ::1 | Status: 200
