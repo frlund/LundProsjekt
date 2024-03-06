@@ -46,3 +46,48 @@ Database connection  postgres://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7i
 9:33:13 AM | [32mGET[39m | / | IP: ::1 | Status: 200
 9:33:13 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
 9:33:43 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com
+####################
+9:37:07 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:37:07 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:37:26 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com
+####################
+9:40:27 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:40:27 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:40:41 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com
+Server enviorment undefined
+####################
+9:52:36 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:52:36 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:52:56 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com
+####################
+9:57:53 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:57:53 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:57:53 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:57:53 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:57:54 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:57:54 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:57:59 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:57:59 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:57:59 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:57:59 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:58:09 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+9:58:09 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+9:58:35 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com
+####################
+10:04:39 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+10:04:39 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+10:05:00 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
