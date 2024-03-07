@@ -76,6 +76,7 @@
 
         // vise brukere
         function showUsers() {
+            console.log("showUsers TRYKKET");
             fetch('/user')
                 .then(response => response.json())
                 .then(users => {

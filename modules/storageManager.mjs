@@ -63,7 +63,7 @@ class DBManager {
             
             console.log("Rows affected:", output.rowCount);
             if (output.rowCount === 0) {
-                console.error("No rows were updated"); // Logg ROWS hvis ingen rader ble oppdatert
+                console.error("No rows were updated"); 
                 throw new Error("No rows were updated");
             }
 
@@ -233,6 +233,22 @@ class DBManager {
             return output.rows;
         } catch (error) {
             SuperLogger.log(`Error loading skjemadata: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            throw error;
+        } finally {
+            client.end();
+        }
+    }
+
+    //Admin hente brukere
+    async getAllUsers() {
+        const client = new pg.Client(this.#credentials);
+        
+        try {
+            await client.connect();
+            const output = await client.query('SELECT * FROM "public"."Users";');
+            return output.rows;
+        } catch (error) {
+            SuperLogger.log(`Error loading users data: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end();

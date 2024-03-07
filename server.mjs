@@ -67,6 +67,17 @@ server.get("/skjemaer/:userId", async (req, res) => {
     }
 });
 
+//AdminPage liste brukere
+server.get("/user", async (req, res) => {
+    try {
+        const users = await DBManager.getAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Feil ved henting av brukere:", error);
+        res.status(500).send("Feil ved henting av brukere.").end();
+    }
+});
+
 server.listen(server.get('port'), function () { // Start the server 
     console.log('server running', server.get('port'));
 });
