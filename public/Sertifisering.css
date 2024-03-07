@@ -31,6 +31,14 @@ input[type="submit"]:hover {
         padding: auto; 
     }
 
+    form {
+        max-width: 300px;
+    }
+    input[type="text"], input[type="date"], select, textarea {
+        width: 100%; 
+    }
+
+
     h1 {
         font-size: medium; 
     }
@@ -46,9 +54,10 @@ input[type="submit"]:hover {
     }
 
     ul li ul.dropdown {
-        background: #e1e1e1;
+        background: #cccccc;
         z-index: 1;
 
     }
 
 }
+

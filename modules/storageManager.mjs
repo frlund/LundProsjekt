@@ -30,7 +30,7 @@ class DBManager {
             console.log(output.rows[0]);
             return output.rows[0];
         } catch(error) {
-            // SuperLogger.log(`Error "loading"" user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+           SuperLogger.log(`Error "loading"" user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
             
         } finally {
@@ -46,7 +46,7 @@ class DBManager {
             console.log(output.rows[0]);
             return output.rows.length > 0;
         } catch(error) {
-            // SuperLogger.log(`Error checking user exists: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error checking user exists: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -59,19 +59,17 @@ class DBManager {
         try {
             await client.connect();
             const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "fylke" = $5, "password" = $3 where id = $4;', [user.name, user.email, user.password, user.id, user.fylke]);
-            //const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "password" = $3 where id = $4;', [user.name, user.email, user.pswHash, user.id]);
+           
             
             console.log("Rows affected:", output.rowCount);
             if (output.rowCount === 0) {
                 console.error("No rows were updated"); // Logg ROWS hvis ingen rader ble oppdatert
                 throw new Error("No rows were updated");
             }
-            // Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
-            // Of special intrest is the rows and rowCount properties of this object.
-            //TODO Did we update the user?
+
 
         } catch (error) {
-            // SuperLogger.log(`Error updating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error updating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
              
         } finally {
@@ -88,13 +86,9 @@ class DBManager {
             await client.connect();
             const output = await client.query('Delete from "public"."Users"  where id = $1;', [user.id]);
 
-            // Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
-            // Of special intrest is the rows and rowCount properties of this object.
-
-            //TODO: Did the user get deleted?
 
         } catch (error) {
-            // SuperLogger.log(`Error deleting user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error deleting user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -115,7 +109,7 @@ class DBManager {
                 user.id = output.rows[0].id;
             }
         } catch (error) {
-            // SuperLogger.log(`Error creating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error creating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -132,7 +126,7 @@ class DBManager {
             const output = await client.query('SELECT * FROM "public"."Users" WHERE email = $1 AND password = $2;', [email, hashedPassword]);
             return output.rows[0]; 
         } catch(error) {
-            // SuperLogger.log(`Error validating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error validating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); 
@@ -149,12 +143,10 @@ class DBManager {
             const output = await client.query('INSERT INTO "public"."Verifisering"("date", "userId", "file") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;', [new Date(), userId, verifiseringString]);
 
             if (output.rows.length == 1) {
-                // We stored the user in the DB.
                 user.id = output.rows[0].id;
             }
 
         } catch (error) {
-            // SuperLogger.log(`Error createVerifisering: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end(); // Always disconnect from the database.
@@ -225,7 +217,7 @@ class DBManager {
                 throw new Error("No rows were inserted");
             }
         } catch (error) {
-            // SuperLogger.log(`Error creating sertifisering: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error saving skjema: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end();
@@ -240,7 +232,7 @@ class DBManager {
             const output = await client.query('SELECT * FROM "public"."skjemaSertifisering" WHERE "userId" = $1;', [userId]);
             return output.rows;
         } catch (error) {
-            // SuperLogger.log(`Error fetching skjemadata for user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error loading skjemadata: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end();

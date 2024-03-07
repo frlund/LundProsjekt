@@ -32,7 +32,7 @@
                 <li><a href="./sykdommer/andreSykdommer.html">Andre sykdommer</a></li>
             </ul>
         </li>
-        <li><a href="Kontrollskjema.html">Sjekkliste >></a></li>
+        <li><a href="Kontrollskjema.html">Sjekkliste</a></li>
         <li><a href="Sertifisering.html">Sertifisering</a></li>
     </ul>
     
@@ -62,12 +62,12 @@
             fetch(`/user/${userId}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Brukerdata mottatt fra serveren:", data);
+                    // console.log("Brukerdata mottatt fra serveren:", data);
                     const userEmail = JSON.parse(data).email;
                     const userEmailElement = document.getElementById('userEmail');
                     if (userEmailElement) {
                         userEmailElement.textContent = `${userEmail}`;
-                        console.log(userEmail);
+                        // console.log(userEmail);
                     } else {
                         console.error("Elementet med ID 'userEmail' eksisterer ikke.");
                     }

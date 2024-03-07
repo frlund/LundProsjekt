@@ -5,7 +5,7 @@ import express from 'express';
 import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
 import DBManager from './modules/storageManager.mjs';
-import session from 'express-session';
+// import session from 'express-session';
 import printDeveloperStartupInportantInformationMSG from "./modules/developerHelpers.mjs";
 
 
@@ -20,18 +20,18 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); 
 
-server.use(session({ // FL- middleware for autentisering
-    secret: 'hemmelig', // Dette bør være en unik og sikker verdi
-    resave: false,
-    saveUninitialized: true
-}));
+// server.use(session({ // FL- middleware for autentisering
+//     secret: 'hemmelig', // Dette bør være en unik og sikker verdi
+//     resave: false,
+//     saveUninitialized: true
+// }));
 
 server.use(express.static('public')); 
 
 server.use("/user", USER_API); 
 
 server.get("/", (req, res, next) => { // A get request handler example)
-    // SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
+    SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });
 
