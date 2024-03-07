@@ -95,20 +95,19 @@
            
             <h2>Sertifisering av egen bigård</h2>
             <h4>
-                Her finner du kontrollskjemaet og prosedyre for egensertifisering av bigård. Kvittering foretas på 
-                Mattilsynets sider (ID-porten)<br> Opprett bruker eller logg inn!
+                Her finner du kontrollskjemaet og prosedyre for egensertifisering av bigård. <br>Kvittering foretas på 
+                Mattilsynets sider (ID-porten) <br><br> På denne siden kan du registrere deg som bruker. Velkommen!
             
             </h4>
-            
             <div>
                 <input type="text" id="name" placeholder="Navn!"><br>
                 <input type="email" id="email" placeholder="Epost!"><br />
                 <input type="password" id="password" placeholder="Passord!"><br />
-                <input type="text" id="fylke" placeholder="Fylke!"><br/><br/>
+                <input type="text" id="fylke" placeholder="Fylke!"><br/>
               
             </div>
-            <button id="createUserButton">Registrer ny bruker</button>
-            <button id="loginUserButton">Logg inn</button>
+            <button id="createUserButton">Registrer ny bruker!</button>
+            <button id="loginUserButton">Allerede registrert</button>
             
         </div>
     </div>
@@ -129,7 +128,7 @@
             try {
                 const response = await postTo("/user", user);
                 if (response.ok) {
-                    console.log("Inndata som sendes:", JSON.stringify(user));
+                    // console.log("Inndata som sendes:", JSON.stringify(user));
                     alert("Velkommen! Bruker opprettet!");
                 } else if(response.status == 409) {
                     console.log("Brukeren eksisterer allerede.");

@@ -39,79 +39,32 @@
     </ul>
     
     <h1>AdminPage</h1>
-    <button type="button" id="brukerAdmButton" onclick="visBrukeradministrasjon()">Brukeradministrasjon</button>
-    <div id="brukerliste"></div>
+    <button type="button" id="brukerAdmButton" onclick="showUsers()">Brukeradministrasjon</button>
+    <div id="userList"></div>
 
     <script>
-        function visBrukeradministrasjon() {
-            fetch('/admin/brukere')
-                .then(response => response.json())
-                .then(brukere => {
-                    const brukerliste = document.getElementById('brukerliste');
-                    brukerliste.innerHTML = ''; 
-
-                    brukere.forEach(bruker => {
-                        const brukerElement = document.createElement('div');
-                        brukerElement.textContent = `Navn: ${bruker.navn}, E-post: ${bruker.epost}`;
-
-                        // Legg til en knapp for å endre passordet til denne brukeren
-                        const endrePassordKnapp = document.createElement('button');
-                        endrePassordKnapp.textContent = 'Endre passord';
-                        endrePassordKnapp.onclick = () => endrePassord(bruker.id); // Knytt funksjonen for endring av passord til knappen
-
-                        brukerElement.appendChild(endrePassordKnapp);
-
-                        brukerliste.appendChild(brukerElement);
-                    });
-                })
-                .catch(error => console.error('Feil ved henting av brukere:', error));
-        }
-
-        function endrePassord(brukerId) {
-            const nyttPassord = prompt('Skriv inn det nye passordet:');
-
-            if (nyttPassord) {
-                fetch(`/admin/brukere/${brukerId}/passord`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ nyttPassord })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Passordet ble endret');
-                    } else {
-                        alert('Det oppstod en feil ved endring av passord');
-                    }
-                })
-                .catch(error => console.error('Feil ved endring av passord:', error));
-            }
-        }
-
         function logout() {
             sessionStorage.removeItem('userId');
             window.location.href = 'loggInn.html';
         }
 
         const userId = sessionStorage.getItem('userId');
-        console.log("Hentet ADM-ID fra sessionStorage:", userId);
+
         if (!userId || userId === 'undefined') {
             window.location.href = "loggInn.html";
         } else {
-            console.log("Bruker er autentisert. Tillat tilgang til meny.html.");
+            console.log("Bruker er autentisert. Tillat tilgang til adminPage.html.");
         }
 
+        // Hente brukerinfo
         window.onload = function() {
             fetch(`/user/${userId}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Brukerdata mottatt fra serveren:", data);
                     const userEmail = JSON.parse(data).email;
                     const userEmailElement = document.getElementById('userEmail');
                     if (userEmailElement) {
                         userEmailElement.textContent = `${userEmail}`;
-                        console.log(userEmail);
                     } else {
                         console.error("Elementet med ID 'userEmail' eksisterer ikke.");
                     }
@@ -120,6 +73,33 @@
                     console.error("Feil ved henting av brukerdata:", error);
                 });
         };
+
+        // vise brukere
+        function showUsers() {
+            fetch('/user')
+                .then(response => response.json())
+                .then(users => {
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = '';
+
+                    users.forEach(user => {
+                        const userElement = document.createElement('div');
+                        userElement.textContent = `Name: ${user.name}, Email: ${user.email}`;
+
+                        // Endre passordet til bruker
+                        const changePassordBtn = document.createElement('button');
+                        changePassordBtn.textContent = 'Endre passord';
+                        changePassordBtn.onclick = () => endrePassord(user.id);
+
+                        userElement.appendChild(changePassordBtn);
+
+                        userList.appendChild(userElement);
+                    });
+                })
+                .catch(error => console.error('Feil ved henting av brukere:', error));
+        }
+    </script>
+
     </script>
 </body>
 </html>
