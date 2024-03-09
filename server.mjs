@@ -5,8 +5,8 @@ import express from 'express';
 import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
 import DBManager from './modules/storageManager.mjs';
-// import session from 'express-session';
 import printDeveloperStartupInportantInformationMSG from "./modules/developerHelpers.mjs";
+import session from 'express-session';
 
 
 printDeveloperStartupInportantInformationMSG();
@@ -20,11 +20,12 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); 
 
-// server.use(session({ // FL- middleware for autentisering
-//     secret: 'hemmelig', // Dette bør være en unik og sikker verdi
-//     resave: false,
-//     saveUninitialized: true
-// }));
+//FL- middleware for autentisering. DENNE LAGRER MW I SESSION PÅ SERVER
+server.use(session({ 
+    secret: '5994471',
+    resave: false,
+    saveUninitialized: true
+}));
 
 server.use(express.static('public')); 
 
@@ -58,7 +59,6 @@ server.get("/skjemaer/:userId", async (req, res) => {
     const userId = req.params.userId;
 
     try {
-        // Hent skjemadata fra databasen basert på userId
         const skjemaer = await DBManager.getSkjemaerForUser(userId);
         res.status(200).json(skjemaer);
     } catch (error) {
@@ -67,14 +67,17 @@ server.get("/skjemaer/:userId", async (req, res) => {
     }
 });
 
-//AdminPage liste brukere
-server.get("/user", async (req, res) => {
+// Oppdatere psw-admin
+server.put("/user/changepassword/:userId", async (req, res) => {
+    const userId = req.params.userId;
+    const { newPassword } = req.body;
+
     try {
-        const users = await DBManager.getAllUsers();
-        res.status(200).json(users);
+        await DBManager.updateUserPassword(userId, newPassword);
+        res.status(200).send("Passordet er endret.").end();
     } catch (error) {
-        console.error("Feil ved henting av brukere:", error);
-        res.status(500).send("Feil ved henting av brukere.").end();
+        console.error("Feil ved endring av passord:", error);
+        res.status(500).send("Feil ved endring av passord.").end();
     }
 });
 

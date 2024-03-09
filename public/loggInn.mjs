@@ -41,4 +41,15 @@ loggInButton.onclick = async function (e) {
 const registerButton = document.getElementById("registerButton");
         registerButton.addEventListener("click", function() {
             window.location.href = "index.html";
-        });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loggInButton = document.getElementById("loggInButton");
+
+    document.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            loggInButton.click();
+        }
+    });
+});

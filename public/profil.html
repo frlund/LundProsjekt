@@ -29,7 +29,7 @@
         </li>
         <li><a href="Kontrollskjema.html">Sjekkliste</a></li>
         <li><a href="Sertifisering.html">Sertifisering</a></li>
-        <li><a href="adminPage.html">Adm!</a></li>
+        <li><a id="admLink" href="adminPage.html">Adm!</a></li>
     </ul>
 
 
@@ -99,7 +99,12 @@
             document.getElementById("fylke").value = user.fylke;
             // console.log(user);
             
-
+            const admButton = document.getElementById("admLink");
+            if(user.admin === true) {
+                admButton.style.display = "block";
+            } else {
+                admButton.style.display = "none";
+            }
         }
 
         

@@ -3,14 +3,18 @@ import DBManager from './storageManager.mjs';
 
 
 async function checkAuthentic(req, res, next) {
-    console.log('Sjekk autentisering...');
-    const userId = req.session && req.session.userId;
+    let userId;
+    if(req.session && req.session.userId) {
+        userId = req.session.userId;
+    } else {
+        userId = undefined;
+    }
 
-    if (!userId) {
+    if (userId) {
         try {
             const user = await DBManager.getUser(userId);
             if (user) {
-                console.log('Bruker er autentisert.');
+                console.log('Bruker autentisert.');
                 return next();
             }
         } catch (error) {

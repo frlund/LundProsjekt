@@ -65,9 +65,10 @@ USER_API.post('/', async (req, res, next) => {
 });    
 
 // FL -Middleware Autentisere BRUKERE på meny.html
-USER_API.get('/meny.html', autentisering, (req, res) => {
+USER_API.get('/meny', autentisering, (req, res) => {
     console.log('Bruker autentisert.');
-    res.sendFile(__dirname + '/public/meny.html'); 
+    res.redirect('/meny.html');
+    // res.sendFile(__dirname + '/public/meny.html');
 });
 
 // Logg  BrukerInnlogging succsess
@@ -83,17 +84,25 @@ USER_API.use((err, req, res, next) => {
 });
 
 
-USER_API.get('/', (req, res, next) => {
-    console.log("Test");
+USER_API.get('/userlist', async (req, res, next) => {
+    console.log("Test userlist");
+    try {
+        const users = await DBManager.getAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Feil ved henting av brukere:", error);
+        res.status(500).send("Feil ved henting av brukere.").end();
+    }
     // SuperLogger.log("Demo of logging tool");
     // SuperLogger.log("A important msg", SuperLogger.LOGGING_LEVELS.CRTICAL);
 })
 
     // HENTE BRUKER/INFO
     USER_API.get('/:id', async (req, res, next) => {
-        console.log("Her ##############################");
         const userId = req.params.id;
-        console.log("userId:", userId);
+        
+        req.session.userId = userId;
+        // console.log("userId:", userId);
         const user = await DBManager.getUser(userId);
         res.status(200).json(JSON.stringify(user)).end();
     });
@@ -113,12 +122,12 @@ USER_API.get('/', (req, res, next) => {
             };
     
             const updatedUser = await DBManager.updateUser(updatedUserData);    
-            res.status(200).json(updatedUser).end();
-            // alert('Brukerdata er oppdatert!');     
+            res.status(200).json(updatedUser);
+            // alert('Brukerdata oppdatert!');     
 
             } catch (error) {
                 console.error("Feil ved oppdatering av bruker:", error);
-                res.status(500).json({ error: 'Feil ved oppdatering av brukerdata' }).end();
+                res.status(500).json({ error: 'Feil ved oppdatering av brukerdata' });
             }
         });
 

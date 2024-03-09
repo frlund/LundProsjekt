@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Side</title>
-    <link rel="stylesheet" type="text/css" href="meny.css">
+    <link rel="stylesheet" type="text/css" href="adminPage.css">
 
 </head>
 <body>
@@ -21,26 +21,18 @@
         <button type="button" id="logoutButton" onclick="logout()">Logg ut</button>
     </header>
     
-    <ul>
-        <li><a href="meny.html">Hjem</a></li>
-        <li>
-            <a href="#">Sykdommer >></a>
-            <ul class="dropdown">
-                <li><a href="./sykdommer/lukketYR.html">Lukket yngelråte</a></li>
-                <li><a href="./sykdommer/aapenYR.html">Åpen yngelråte</a></li>
-                <li><a href="./sykdommer/steinyngel.html">Steinyngel</a></li>
-                <li><a href="./sykdommer/kubebille.html">Liten kubebille</a></li>
-                <li><a href="./sykdommer/Csykdommer.html">C-sykdommer</a></li>
-                <li><a href="./sykdommer/andreSykdommer.html">Andre sykdommer</a></li>
-            </ul>
-        </li>
-        <li><a href="Kontrollskjema.html">Sjekkliste</a></li>
-        <li><a href="Sertifisering.html">Sertifisering</a></li>
-    </ul>
-    
     <h1>AdminPage</h1>
-    <button type="button" id="brukerAdmButton" onclick="showUsers()">Brukeradministrasjon</button>
-    <div id="userList"></div>
+    <button type="button" id="brukerAdmButton" onclick="showUsers()">Vis brukerliste</button><br><br>
+    <table id="userList">
+        <tr>
+            <th>Nr</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Nytt Passord</th>
+            <th></th>
+
+        </tr>
+    </table>
 
     <script>
         function logout() {
@@ -61,6 +53,10 @@
             fetch(`/user/${userId}`)
                 .then(response => response.json())
                 .then(data => {
+                    if(JSON.parse(data).admin !== true) {
+                        window.location.href = "profil.html";
+                    }
+
                     const userEmail = JSON.parse(data).email;
                     const userEmailElement = document.getElementById('userEmail');
                     if (userEmailElement) {
@@ -77,30 +73,76 @@
         // vise brukere
         function showUsers() {
             console.log("showUsers TRYKKET");
-            fetch('/user')
+            fetch('/user/userlist')
                 .then(response => response.json())
                 .then(users => {
                     const userList = document.getElementById('userList');
                     userList.innerHTML = '';
 
-                    users.forEach(user => {
-                        const userElement = document.createElement('div');
-                        userElement.textContent = `Name: ${user.name}, Email: ${user.email}`;
+                    users.forEach((user, index) => {
+                        const userRow = document.createElement('tr'); 
+                        const userNumber = document.createElement('td');
+                        userNumber.textContent = index + 1;
 
-                        // Endre passordet til bruker
+                        const userName = document.createElement('td');
+                        userName.textContent = user.name;
+
+                        const userEmail = document.createElement('td');
+                        userEmail.textContent = user.email;
+
+                        const newPasswordCell = document.createElement('td');
+                        const newPasswordInput = document.createElement('input');
+                        newPasswordInput.type = 'password';
+                        newPasswordInput.placeholder = 'Nytt passord';
+                        newPasswordInput.classList.add('input-field');
+                        newPasswordCell.appendChild(newPasswordInput);
+
+                        const changePasswordCell = document.createElement('td');
                         const changePassordBtn = document.createElement('button');
                         changePassordBtn.textContent = 'Endre passord';
-                        changePassordBtn.onclick = () => endrePassord(user.id);
+                        changePassordBtn.onclick = () => endrePassord(user, newPasswordInput.value);
+                        changePasswordCell.appendChild(changePassordBtn);
 
-                        userElement.appendChild(changePassordBtn);
+                        userRow.appendChild(userNumber);
+                        userRow.appendChild(userName);
+                        userRow.appendChild(userEmail);
+                        userRow.appendChild(newPasswordCell);
+                        userRow.appendChild(changePasswordCell);
 
-                        userList.appendChild(userElement);
+                        userList.appendChild(userRow);
                     });
                 })
                 .catch(error => console.error('Feil ved henting av brukere:', error));
         }
-    </script>
+
+        function endrePassord(user, newPassword) {
+            if (!newPassword) {
+                alert("Vennligst skriv inn et nytt passord.");
+                return;
+            }
+
+            fetch(`/user/changepassword/${user.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ newPassword: newPassword })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Passordet er endret.");
+                } else {
+                    throw new Error("Feil ved endring av passord.");
+                }
+            })
+            .catch(error => {
+                console.error("Feil ved endring av passord:", error);
+            });
+        }
+
 
     </script>
+
+   
 </body>
 </html>

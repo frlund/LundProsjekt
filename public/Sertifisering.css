@@ -26,6 +26,22 @@ input[type="submit"]:hover {
     background-color: #45a049;
 }
 
+.icon {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    background-size: cover;
+    margin-right: 5px;
+}
+
+#iconProfil {
+    background-image: url('./Bilder og design/iconProfile.png');
+}
+
+#iconTilsyn {
+    background-image: url('./Bilder og design/LogoMattilsynet.png');
+}
+
 @media screen and (max-width: 600px) {
     .tekstfeltIndex {
         padding: auto; 

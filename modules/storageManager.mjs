@@ -79,6 +79,26 @@ class DBManager {
         return user;
     }
 
+    async updateUserPassword(userId, newPassword) { 
+        const client = new pg.Client(this.#credentials);
+        try {
+            await client.connect();
+            const hashedPassword = this.hashPassword(newPassword);
+            const output = await client.query('Update "public"."Users" set "password" = $2 where id = $1;', [userId, hashedPassword]);          
+            
+            console.log("Rows affected:", output.rowCount);
+            if (output.rowCount === 0) {
+                console.error("No rows were updated"); 
+                throw new Error("No rows were updated");
+            }
+        } catch (error) {
+            SuperLogger.log(`Error updating user password: ${error}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
+            throw error; 
+        } finally {
+            client.end(); 
+        }
+    }
+
     async deleteUser(user) {
         const client = new pg.Client(this.#credentials);
 
@@ -143,7 +163,9 @@ class DBManager {
             const output = await client.query('INSERT INTO "public"."Verifisering"("date", "userId", "file") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;', [new Date(), userId, verifiseringString]);
 
             if (output.rows.length == 1) {
+                const user = {};
                 user.id = output.rows[0].id;
+                return user;
             }
 
         } catch (error) {
@@ -217,7 +239,7 @@ class DBManager {
                 throw new Error("No rows were inserted");
             }
         } catch (error) {
-            SuperLogger.log(`Error saving skjema: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            SuperLogger.log(`Error saving skjema: ${error}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
             throw error;
         } finally {
             client.end();
@@ -248,7 +270,7 @@ class DBManager {
             const output = await client.query('SELECT * FROM "public"."Users";');
             return output.rows;
         } catch (error) {
-            SuperLogger.log(`Error loading users data: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
+            // SuperLogger.log(`Error loading users data: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
             client.end();

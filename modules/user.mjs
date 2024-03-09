@@ -11,6 +11,7 @@ class User {
     this.name;
     this.fylke;
     this.id;
+    this.admin;
   }
 
   
