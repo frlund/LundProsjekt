@@ -9,9 +9,6 @@ body {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    display: flex; /* Legg til flex container */
-    flex-direction: column; /* Plasser elementene i kolonner */
-    align-items: center; /* Sentrer elementene horisontalt */
 }
 
 .hjemIkon {
@@ -25,26 +22,39 @@ body {
     height: 15px;
 }
 
+hr {
+    border: 0;
+    border-top: 1px solid #ccc; /* Tynn grå linje */
+    width: 100%;
+}
+
 h1 {
     font-size: 2em;
     margin-bottom: 20px;
 }
 
 .content {
-    margin-top: 20px; /* Legg til toppmargen for å skille bildet og teksten */
+    margin-top: 20px;
+    text-align: left; /* Venstrejustering av tekst */
 }
 
 .content img {
-    max-width: 100%;
+    max-width: 100%; /* Full bredde */
     height: auto;
     margin-bottom: 20px;
+    cursor: pointer; /* Endre musepekeren til en peker */
+}
+
+.content img.fullSize {
+    max-width: none;
+    width: auto;
+    height: auto;
 }
 
 p {
     color: brown;
     font-size: 1.2em;
     line-height: 1.4;
-    text-align: left;
 }
 
 a {
@@ -72,10 +82,6 @@ a:hover {
 }
 
 @media screen and (max-width: 600px) {
-    h1 {
-        font-size: 1.5em;
-    }
-
     p {
         font-size: 1em;
     }
