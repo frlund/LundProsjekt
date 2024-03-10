@@ -423,10 +423,10 @@
               "src": "./AppImages/ios/128.png",
               "sizes": "128x128"
             },
-            // {
-            //   "src": "./AppImages/ios/144.png",
-            //   "sizes": "144x144"
-            // },
+            {
+            "src": "./AppImages/ios/144.png",
+             "sizes": "144x144"
+            },
             {
               "src": "./AppImages/ios/152.png",
               "sizes": "152x152"
