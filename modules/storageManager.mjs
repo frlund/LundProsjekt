@@ -118,7 +118,8 @@ class DBManager {
     }
 
     async createUser(user) {
-        console.log(this.#credentials);
+        // console.log(this.#credentials);
+        SuperLogger.log("NEW user registrert!", SuperLogger.LOGGING_LEVELS.IMPORTANT);
         const client = new pg.Client(this.#credentials);
 
         try {
