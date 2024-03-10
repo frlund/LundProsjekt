@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <title>Index</title>
+    <link rel="manifest" href="./PWA/manifest.json">
 </head>
 <style>
     body {
@@ -128,7 +130,6 @@
             try {
                 const response = await postTo("/user", user);
                 if (response.ok) {
-                    // console.log("Inndata som sendes:", JSON.stringify(user));
                     alert("Velkommen! Bruker opprettet!");
                 } else if(response.status == 409) {
                     console.log("Brukeren eksisterer allerede.");
@@ -160,7 +161,20 @@
             return response;
         }
 
+        //PWA
+        async function registrerSW() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    await navigator.serviceWorker.register('sw.js');
+                } catch (error) {
+                    console.error("Feil ved registrering av SW:", error);
+                }
+            }
+        }
+
     </script>
+  
+
 </body>
 
 </html>

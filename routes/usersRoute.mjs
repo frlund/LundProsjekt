@@ -85,13 +85,12 @@ USER_API.use((err, req, res, next) => {
 
 
 USER_API.get('/userlist', async (req, res, next) => {
-    console.log("Test userlist");
     try {
         const users = await DBManager.getAllUsers();
-        res.status(200).json(users);
+            res.status(200).json(users);
     } catch (error) {
         console.error("Feil ved henting av brukere:", error);
-        res.status(500).send("Feil ved henting av brukere.").end();
+            res.status(500).send("Feil ved henting av brukere.").end();
     }
 })
 
