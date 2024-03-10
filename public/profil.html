@@ -175,11 +175,13 @@
                     const userId = sessionStorage.getItem("userId");              
                 try {
                     const response = await deleteTo(`/user/${userId}`);
-                    console.log(response);
-                    // TODO Oppdatere feilmeldinger
+                   
                     if (response.status == 200) {
                         //console.log("Inndata som sendes:", JSON.stringify(user));
                         alert("Bruker er slette!");
+                        sessionStorage.removeItem('userId');
+                        window.location.href = 'index.html'; 
+                        
                     } else if (response.status == 409) {
                         console.log("Error 409, conflict! Bruker ble IKKE slettet");
                         alert("Error 409, conflict! Bruker ble IKKE slettet");

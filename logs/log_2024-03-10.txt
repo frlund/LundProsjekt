@@ -1,0 +1,28 @@
+####################
+Server enviorment undefined
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+11:29:28 AM | [32mGET[39m | / | IP: ::1 | Status: 200
+11:29:28 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+11:29:46 AM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+POST: Data recived from user...
+NEW user registrert!
+POST: New user
+11:29:50 AM | [32mGET[39m | /loggInn.html | IP: ::1 | Status: 200
+11:29:50 AM | [32mGET[39m | /loggInn.mjs | IP: ::1 | Status: 200
+11:29:50 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+11:29:57 AM | [33mPOST[39m | /user/login | IP: ::1 | Status: 200
+POST: Innloggingsforespørsel mottatt:
+Login success- user: test5@test5.no
+11:29:59 AM | [32mGET[39m | /meny.html | IP: ::1 | Status: 200
+11:29:59 AM | [32mGET[39m | /meny.css | IP: ::1 | Status: 200
+11:29:59 AM | [32mGET[39m | /Bilder%20og%20design/user.png | IP: ::1 | Status: 200
+11:29:59 AM | [32mGET[39m | /Bilder%20og%20design/honey-bees-326334_1920.jpg | IP: ::1 | Status: 200
+11:29:59 AM | [32mGET[39m | /user/24 | IP: ::1 | Status: 200
+11:30:06 AM | [32mGET[39m | /profil.html | IP: ::1 | Status: 200
+11:30:06 AM | [32mGET[39m | /profil.css | IP: ::1 | Status: 200
+11:30:06 AM | [32mGET[39m | /skjemaer/24 | IP: ::1 | Status: 200
+11:30:06 AM | [32mGET[39m | /user/24 | IP: ::1 | Status: 200
+11:30:49 AM | [31mDELETE[39m | /user/24 | IP: ::1 | Status: 200
+11:30:51 AM | [32mGET[39m | /index.html | IP: ::1 | Status: 200
+11:30:52 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
