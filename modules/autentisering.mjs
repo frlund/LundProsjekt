@@ -1,7 +1,6 @@
 // MIDDLEWARE for tilgangskontroll
 import DBManager from './storageManager.mjs';
 
-
 async function checkAuthentic(req, res, next) {
     let userId;
     if(req.session && req.session.userId) {
