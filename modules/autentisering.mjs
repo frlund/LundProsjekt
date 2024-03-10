@@ -22,7 +22,6 @@ async function checkAuthentic(req, res, next) {
         }
     }
 
-    console.log('Ikke autorisert');
     return res.redirect('/index.html');
 }
 
