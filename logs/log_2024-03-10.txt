@@ -26,3 +26,76 @@ Login success- user: test5@test5.no
 11:30:49 AM | [31mDELETE[39m | /user/24 | IP: ::1 | Status: 200
 11:30:51 AM | [32mGET[39m | /index.html | IP: ::1 | Status: 200
 11:30:52 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+Server enviorment undefined
+####################
+Database connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+7:06:18 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:06:18 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:06:18 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:06:18 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:06:24 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:06:24 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:06:24 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:06:24 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:06:25 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:06:25 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:06:25 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:06:25 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:07:26 PM | [33mPOST[39m | /user | IP: ::1 | Status: 200
+POST: Data recived from user...
+NEW user registrert!
+POST: New user
+7:07:33 PM | [32mGET[39m | /loggInn.html | IP: ::1 | Status: 200
+7:07:33 PM | [32mGET[39m | /loggInn.mjs | IP: ::1 | Status: 200
+7:07:33 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:07:48 PM | [33mPOST[39m | /user/login | IP: ::1 | Status: 200
+POST: Innloggingsforespørsel mottatt:
+Login success- user: hans@hans.no
+7:07:49 PM | [32mGET[39m | /meny.html | IP: ::1 | Status: 200
+7:07:49 PM | [32mGET[39m | /Bilder%20og%20design/honey-bees-326334_1920.jpg | IP: ::1 | Status: 200
+7:07:49 PM | [32mGET[39m | /meny.css | IP: ::1 | Status: 200
+7:07:49 PM | [32mGET[39m | /Bilder%20og%20design/user.png | IP: ::1 | Status: 200
+7:07:49 PM | [32mGET[39m | /user/25 | IP: ::1 | Status: 200
+7:09:10 PM | [32mGET[39m | /loggInn.html | IP: ::1 | Status: 200
+7:09:10 PM | [32mGET[39m | /loggInn.mjs | IP: ::1 | Status: 200
+7:09:10 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:09:14 PM | [32mGET[39m | /meny.css | IP: ::1 | Status: 200
+7:09:18 PM | [32mGET[39m | /loggInn.html | IP: ::1 | Status: 200
+7:09:18 PM | [32mGET[39m | /loggInn.mjs | IP: ::1 | Status: 200
+7:09:18 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:09:23 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:09:23 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:09:23 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:09:23 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:15:58 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:15:58 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:15:58 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:15:58 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/120.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/128.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/152.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/167.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/180.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/192.png | IP: ::1 | Status: 200
+7:19:17 PM | [32mGET[39m | /PWA/AppImages/ios/1024.png | IP: ::1 | Status: 200
+7:21:50 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:21:50 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:21:50 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:21:50 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200
+7:23:41 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:23:41 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:23:41 PM | [32mGET[39m | /public/PWA/manifest.json | IP: ::1 | Status: 200
+7:23:41 PM | [32mGET[39m | /public/PWA/manifest.json | IP: ::1 | Status: 200
+7:23:43 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:23:43 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:23:43 PM | [32mGET[39m | /public/PWA/manifest.json | IP: ::1 | Status: 200
+7:23:43 PM | [32mGET[39m | /public/PWA/manifest.json | IP: ::1 | Status: 200
+7:27:13 PM | [32mGET[39m | / | IP: ::1 | Status: 200
+7:27:13 PM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::1 | Status: 200
+7:27:13 PM | [32mGET[39m | /PWA/manifest.json | IP: ::1 | Status: 200
+7:27:13 PM | [32mGET[39m | /PWA/AppImages/ios/144.png | IP: ::1 | Status: 200

@@ -1,7 +1,7 @@
 {
     "name": "Sertifisering",
     "short_name": "Bier",
-    "start_url": ".",
+    "start_url": "../index.html",
     "display": "standalone",
     "background_color": "#fdfdfd",
     "description": "Sertifisering av bigård",
