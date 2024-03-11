@@ -71,17 +71,6 @@ USER_API.get('/meny', autentisering, (req, res) => {
     
 });
 
-// Logg  BrukerInnlogging succsess
-USER_API.use((req, res, next) => {
-    // SuperLogger.log(`Login: ${req.method} ${req.originalUrl} av bruker: ${req.user.email}`, SuperLogger.LOGGING_LEVELS.CRITICAL););
-    next();
-});
-
-// Logg  BrukerInnlogging ERROR
-USER_API.use((err, req, res, next) => {
-    SuperLogger.log(`ERROR login: ${err.message}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
-    res.status(403).json({ error: 'Tilgang nektet' }).end();
-});
 
 
 USER_API.get('/userlist', async (req, res, next) => {
@@ -104,7 +93,7 @@ USER_API.get('/userlist', async (req, res, next) => {
         res.status(200).json(JSON.stringify(user)).end();
     });
 
-    // TODO Oppdater BRUKER    
+    // Oppdater BRUKER    
     USER_API.put('/:id', async (req, res) => {
         try {
             const {id, name, email, password, fylke } = req.body;

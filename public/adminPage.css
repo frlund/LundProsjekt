@@ -6,6 +6,12 @@ body {
     overflow: auto;
 }
 
+hr {
+    border: 0;
+    border-top: 1px solid #ccc; 
+    width: 100%;
+}
+
 header {
     margin: 20px;
     margin-top: 10px;

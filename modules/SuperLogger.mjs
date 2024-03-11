@@ -53,7 +53,6 @@ class SuperLogger {
         }
         return SuperLogger.instance;
     }
-    //#endregion
 
     static log(msg, logLevl = SuperLogger.LOGGING_LEVELS.IMPORTANT) {
         let logger = new SuperLogger();
