@@ -28,12 +28,12 @@ loggInButton.onclick = async function (e) {
                window.location.href = "meny.html";
         } else {
             console.error("ERROR login");
-            alert("ERROR Check username and password");
+            alert("ERROR feil brukernavn eller passord");
             
         }
     } catch (error) {
         console.error("Log error:", error);
-        alert("ERROR login user!");
+        alert("Feil under innlogging!");
         
     }
 }

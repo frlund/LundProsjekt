@@ -8,9 +8,9 @@ export default function printDeveloperStartupInportantInformationMSG() {
     SuperLogger.log(`Server enviorment ${process.env.ENVIORMENT}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
 
     if (process.env.ENVIORMENT == "local") {
-        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT); //TODO HASHE PASSORD
+        SuperLogger.log(`DB connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
     } else {
-        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
+        SuperLogger.log(`DB connection  ${process.env.DB_CONNECTIONSTRING}`, SuperLogger.LOGGING_LEVELS.IMPORTANT);
     }
 
     if (process.argv.length > 2) {
