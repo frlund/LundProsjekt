@@ -1,4 +1,4 @@
-
+import 'dotenv/config' 
 import Chalk from "chalk";
 import { HTTPMethods } from "./httpConstants.mjs"
 import fs from "fs/promises"
@@ -37,11 +37,7 @@ class SuperLogger {
 
     #globalThreshold = SuperLogger.LOGGING_LEVELS.IMPORTANT;
     #loggers;
-
-    //#region Using a variation on the singelton pattern
-    // https://javascriptpatterns.vercel.app/patterns/design-patterns/singleton-pattern
-    // This field is static 
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static
+    
     static instance = null;
 
     constructor() {

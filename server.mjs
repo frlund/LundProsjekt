@@ -10,6 +10,7 @@ import session from 'express-session';
 
 
 printDeveloperStartupInportantInformationMSG();
+console.log('Server environment:', process.env.ENVIRONMENT);
 
 // Server
 const server = express();
@@ -31,7 +32,7 @@ server.use(express.static('public'));
 
 server.use("/user", USER_API); 
 
-server.get("/", (req, res, next) => { // A get request handler example)
+server.get("/", (req, res, next) => { 
     SuperLogger.log('Get request received for /', SuperLogger.LOGGING_LEVELS.IMPORTANT);
     res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
 });

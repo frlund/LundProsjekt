@@ -1,36 +1,60 @@
-####################
-Server enviorment undefined
-####################
-DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
-####################
-Server enviorment undefined
-####################
-DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
-####################
-Server enviorment undefined
-####################
-DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+
 Server enviorment undefined
 ####################
 DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
 ####################
 ####################
-Server enviorment undefined
 DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
 ####################
-####################
 Server enviorment undefined
-DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
-####################
-####################
-Server enviorment undefined
-####################
-DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
-Server enviorment undefined
-####################
-DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
-####################
 ####################
 Server enviorment undefined
 DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
 ####################
+11:40:49 AM | [32mGET[39m | / | IP: ::ffff:127.0.0.1 | Status: 200
+11:40:49 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:41:02 AM | [33mPOST[39m | /user | IP: ::ffff:127.0.0.1 | Status: 200
+POST: Data recived from user...
+NEW user registrert!
+POST: New user
+POST: Data recived from user...
+11:42:05 AM | [33mPOST[39m | /user | IP: ::ffff:127.0.0.1 | Status: 200
+NEW user registrert!
+POST: New user
+11:42:15 AM | [32mGET[39m | /loggInn.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:15 AM | [32mGET[39m | /loggInn.mjs | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:15 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:30 AM | [33mPOST[39m | /user/login | IP: ::ffff:127.0.0.1 | Status: 200
+POST: Innloggingsforespørsel mottatt:
+Login success- user: olle@olle.no
+11:42:31 AM | [32mGET[39m | /meny.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:31 AM | [32mGET[39m | /meny.css | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:31 AM | [32mGET[39m | /Bilder%20og%20design/user.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:31 AM | [32mGET[39m | /Bilder%20og%20design/honey-bees-326334_1920.jpg | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:31 AM | [32mGET[39m | /user/34 | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:51 AM | [32mGET[39m | /Sertifisering.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:51 AM | [32mGET[39m | /meny.css | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:51 AM | [32mGET[39m | /Sertifisering.css | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:51 AM | [32mGET[39m | /Sertifisering.mjs | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:51 AM | [32mGET[39m | /Bilder%20og%20design/iconProfile.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:42:51 AM | [32mGET[39m | /Bilder%20og%20design/LogoMattilsynet.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:37 AM | [32mGET[39m | /meny.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:37 AM | [32mGET[39m | /meny.css | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:37 AM | [32mGET[39m | /Bilder%20og%20design/user.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:37 AM | [32mGET[39m | /Bilder%20og%20design/honey-bees-326334_1920.jpg | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:37 AM | [32mGET[39m | /user/34 | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:39 AM | [32mGET[39m | /loggInn.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:39 AM | [32mGET[39m | /loggInn.mjs | IP: ::ffff:127.0.0.1 | Status: 200
+11:43:39 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /meny.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /meny.css | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /Bilder%20og%20design/user.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /Bilder%20og%20design/honey-bees-326334_1920.jpg | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /loggInn.html | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /loggInn.mjs | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:02 AM | [32mGET[39m | /Bilder%20og%20design/bees-8267791_1920.png | IP: ::ffff:127.0.0.1 | Status: 200
+11:44:28 AM | [32mGET[39m | /user/meny.html | IP: ::ffff:127.0.0.1 | Status: 200
+####################
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
