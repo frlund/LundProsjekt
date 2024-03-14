@@ -20,7 +20,7 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); 
 
-//FL- middleware for autentisering. DENNE LAGRER MW I SESSION PÅ SERVER
+//FL- middleware, DENNE LAGRER MW I SESSION PÅ SERVER
 server.use(session({ 
     secret: '5994471',
     resave: false,

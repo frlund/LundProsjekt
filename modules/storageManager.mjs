@@ -1,7 +1,7 @@
 import pg from 'pg';
 import crypto from 'crypto';
 import SuperLogger from "./SuperLogger.mjs";
-// import skjemaSertifisering from './skjemaSertifisering.mjs';
+
 
 
 if (process.env.DB_CONNECTIONSTRING == undefined) {
@@ -27,14 +27,14 @@ class DBManager {
         try {
             await client.connect();
             const output = await client.query('select * from "public"."Users" where id = $1;', [id]);
-            SuperLogger.log(`Retrieved userId ${id}`, SuperLogger.LOGGING_LEVELS.NORMAL);
+            console.log(output.rows[0]);
             return output.rows[0];
         } catch(error) {
            SuperLogger.log(`Error "loading"" user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
             
         } finally {
-            client.end();
+            client.end(); // Always disconnect from the database.
         }
     }
 
@@ -49,7 +49,7 @@ class DBManager {
             SuperLogger.log(`Error checking user exists: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
-            client.end(); 
+            client.end(); // Always disconnect from the database.
         }
     }
 
@@ -111,13 +111,14 @@ class DBManager {
             SuperLogger.log(`Error deleting user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
-            client.end();
+            client.end(); // Always disconnect from the database.
         }
 
         return user;
     }
 
     async createUser(user) {
+        // console.log(this.#credentials);
         SuperLogger.log("NEW user registrert!", SuperLogger.LOGGING_LEVELS.IMPORTANT);
         const client = new pg.Client(this.#credentials);
 
@@ -127,13 +128,12 @@ class DBManager {
           
             if (output.rows.length == 1) {
                 user.id = output.rows[0].id;
-                SuperLogger.log(`User ${user.name} created with id ${user.id}`, SuperLogger.LOGGING_LEVELS.INFO);
             }
         } catch (error) {
             SuperLogger.log(`Error creating user: ${error}`, SuperLogger.LOGGING_LEVELS.ERROR);
             throw error;
         } finally {
-            client.end();
+            client.end(); // Always disconnect from the database.
         }
         return user;
     }
@@ -172,7 +172,7 @@ class DBManager {
         } catch (error) {
             throw error;
         } finally {
-            client.end();
+            client.end(); // Always disconnect from the database.
         }
 
         return user;
@@ -286,7 +286,6 @@ class DBManager {
     }
 
 }
-
 
 
 export default new DBManager(process.env.DB_CONNECTIONSTRING);

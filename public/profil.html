@@ -177,20 +177,16 @@
                     const response = await deleteTo(`/user/${userId}`);
                    
                     if (response.status == 200) {
-                        //console.log("Inndata som sendes:", JSON.stringify(user));
                         alert("Bruker er slette!");
                         sessionStorage.removeItem('userId');
                         window.location.href = 'index.html'; 
                         
                     } else if (response.status == 409) {
-                        console.log("Error 409, conflict! Bruker ble IKKE slettet");
                         alert("Error 409, conflict! Bruker ble IKKE slettet");
                     } else {
-                        console.error("Feil ved sletting av bruker");
                         alert("Feil ved sletting av bruker");
                     }
                 } catch (error) {
-                    console.error("Feil ved sletting av bruker:", error);
                     alert("Feil ved sletting av bruker");
                     }
                 }
@@ -215,16 +211,12 @@
         const response = await fetch(`/skjemaer/${userId}`);
         const skjemaer = await response.json();
 
-        // Finn HTML-elementet der skjemadataene skal vises
         const skjemaliste = document.getElementById('skjemaliste');
 
-        // Gå gjennom hvert skjema og opprett HTML-elementer for visning
         skjemaer.forEach(skjema => {
-            // Opprett en <div> for hvert skjema
             const skjemaelement = document.createElement('div');
             skjemaelement.classList.add('skjema');
 
-            // Opprett en knapp for å vise skjemainnholdet
             const knapp = document.createElement('button');
             knapp.textContent = `Kontrolldato: ${skjema.dato}`;
             knapp.classList.add('closeButton');
@@ -246,12 +238,11 @@
                 `;               
             });
 
-            
             skjemaelement.appendChild(knapp);
             skjemaliste.appendChild(skjemaelement);
         });
     } catch (error) {
-        console.error("Feil ved henting av skjemadata:", error);
+        alert("Feil ved henting av skjemadata");
     }
 }
 

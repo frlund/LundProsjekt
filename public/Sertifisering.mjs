@@ -2,7 +2,6 @@
 
 // Sertifisering LAGRE JSON
 const userId = sessionStorage.getItem('userId');
-console.log("Hentet brukerens ID fra sessionStorage:", userId);
 if (!userId || userId === 'undefined') {
     window.location.href = "loggInn.html";
 } else {
@@ -13,7 +12,7 @@ const userIdInput = document.getElementById('userId');
 if (userIdInput) {
     userIdInput.value = userId;
 } else {
-    console.error("Elementet med ID 'userId' eksisterer ikke.");
+   alert("Fant ikke din userId");
 }
 
 document.getElementById("myForm").addEventListener("submit", async function(event) {

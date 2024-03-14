@@ -15,24 +15,19 @@ loggInButton.onclick = async function (e) {
             body: JSON.stringify({ email, password }),
         });
 
-        console.log("Response Status:", response.status);
-
         if (response.status === 200) {
             const responseData = await response.json(); 
             const userId = responseData.user.id;
 
             if (userId) {
                 sessionStorage.setItem('userId', userId);
-                console.log("userID saved in sessionStorage:", userId);
             }
                window.location.href = "meny.html";
         } else {
-            console.error("ERROR login");
             alert("ERROR feil brukernavn eller passord");
             
         }
     } catch (error) {
-        console.error("Log error:", error);
         alert("Feil under innlogging!");
         
     }

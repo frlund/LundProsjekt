@@ -46,12 +46,10 @@
 
     <script>
         function logout() {
-            // console.log("Log out");
             sessionStorage.removeItem('userId');
             window.location.href = 'loggInn.html';
         }
         const userId = sessionStorage.getItem('userId');
-        console.log("Hentet brukerens ID fra sessionStorage:", userId);
         if (!userId || userId === 'undefined') {
             window.location.href = "loggInn.html";
         } else {
@@ -62,12 +60,11 @@
             fetch(`/user/${userId}`)
                 .then(response => response.json())
                 .then(data => {
-                    // console.log("Brukerdata mottatt fra serveren:", data);
+                    
                     const userEmail = JSON.parse(data).email;
                     const userEmailElement = document.getElementById('userEmail');
                     if (userEmailElement) {
                         userEmailElement.textContent = `${userEmail}`;
-                        // console.log(userEmail);
                     } else {
                         console.error("Elementet med ID 'userEmail' eksisterer ikke.");
                     }

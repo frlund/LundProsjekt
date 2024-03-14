@@ -1,0 +1,36 @@
+####################
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+####################
+Server enviorment undefined
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+####################
+Server enviorment undefined
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+####################
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+Server enviorment undefined
+####################
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
+####################
+Server enviorment undefined
+DB connection  postgresql://sertifisering_user:6v5SqfUhjEt4p244BOXFKUVRAOB7iGtE@dpg-cn6rkc2cn0vc73dm4eng-a.frankfurt-postgres.render.com/sertifisering_user
+####################
