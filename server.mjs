@@ -4,6 +4,7 @@ import 'dotenv/config'
 import express from 'express';
 import USER_API from './routes/usersRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
+import checkAuthentic from './modules/autentisering.mjs';
 import DBManager from './modules/storageManager.mjs';
 import printDeveloperStartupInportantInformationMSG from "./modules/developerHelpers.mjs";
 import session from 'express-session';
@@ -18,12 +19,13 @@ const port = (process.env.PORT || 8080);
 server.use(express.json());
 server.set('port', port);
 
+
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); 
 
-//FL- middleware, DENNE LAGRER MW I SESSION PÅ SERVER
+//LAGRER MW I SESSION PÅ SERVER
 server.use(session({ 
-    secret: '5994471',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }));
