@@ -23,9 +23,9 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); 
 
-//LAGRER MW I SESSION PÅ SERVER
+//FL- middleware, DENNE LAGRER MW I SESSION PÅ SERVER
 server.use(session({ 
-    secret: process.env.SESSION_SECRET,
+    secret: '5994471',
     resave: false,
     saveUninitialized: true
 }));
